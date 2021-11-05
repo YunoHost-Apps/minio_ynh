@@ -20,7 +20,7 @@ domain=$(ynh_app_setting_get --app=$app --key=domain)
 port=$(ynh_app_setting_get --app=$app --key=port)
 console_port=$(ynh_app_setting_get --app=$app --key=console_port)
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
-datadir==$(ynh_app_setting_get --app=$app --key=datadir)
+datadir=$(ynh_app_setting_get --app=$app --key=datadir)
 
 #=================================================
 # STANDARD REMOVE
