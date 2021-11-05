@@ -18,9 +18,9 @@ app=$YNH_APP_INSTANCE_NAME
 
 domain=$(ynh_app_setting_get --app=$app --key=domain)
 port=$(ynh_app_setting_get --app=$app --key=port)
-db_name=$(ynh_app_setting_get --app=$app --key=db_name)
-db_user=$db_name
+console_port=$(ynh_app_setting_get --app=$app --key=console_port)
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
+datadir==$(ynh_app_setting_get --app=$app --key=datadir)
 
 #=================================================
 # STANDARD REMOVE
@@ -52,14 +52,6 @@ ynh_script_progression --message="Removing logrotate configuration..." --time --
 ynh_remove_logrotate
 
 #=================================================
-# REMOVE THE MYSQL DATABASE
-#=================================================
-ynh_script_progression --message="Removing the MySQL database..." --time --weight=1
-
-# Remove a database if it exists, along with the associated user
-ynh_mysql_remove_db --db_user=$db_user --db_name=$db_name
-
-#=================================================
 # REMOVE DEPENDENCIES
 #=================================================
 ynh_script_progression --message="Removing dependencies..." --time --weight=1
@@ -74,6 +66,7 @@ ynh_script_progression --message="Removing app main directory..." --time --weigh
 
 # Remove the app directory securely
 ynh_secure_remove --file="$final_path"
+ynh_secure_remove --file="$datadir"
 
 #=================================================
 # REMOVE NGINX CONFIGURATION
@@ -98,6 +91,12 @@ ynh_remove_fpm_config
 if yunohost firewall list | grep -q "\- $port$"
 then
 	ynh_script_progression --message="Closing port $port..." --time --weight=1
+	ynh_exec_warn_less yunohost firewall disallow TCP $port
+fi
+
+if yunohost firewall list | grep -q "\- $console_port$"
+then
+	ynh_script_progression --message="Closing port $console_port..." --time --weight=1
 	ynh_exec_warn_less yunohost firewall disallow TCP $port
 fi
 
