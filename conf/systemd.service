@@ -7,6 +7,7 @@ Type=simple
 User=__APP__
 Group=__APP__
 WorkingDirectory=__FINALPATH__/
+EnvironmentFile=__FINAL_PATH__/.env
 ExecStart=__FINALPATH__/minio server $MINIO_OPTS $MINIO_VOLUMES
 StandardOutput=append:/var/log/__APP__/__APP__.log
 StandardError=inherit
