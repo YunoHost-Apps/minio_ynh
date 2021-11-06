@@ -35,12 +35,6 @@
                 "type": "domain"
             },
             {
-                "name": "path",
-                "type": "path",
-                "example": "/example",
-                "default": "/minio"
-            },
-            {
                 "name": "is_public",
                 "type": "boolean",
                 "default": true
