@@ -70,7 +70,7 @@ test ! -e "$data_path" || ynh_die --message="This path already contains a folder
 ynh_script_progression --message="Storing installation settings..." --time --weight=1
 
 ynh_app_setting_set --app=$app --key=domain --value=$domain
-ynh_app_setting_set --app=$app --key=language --value=$language
+#ynh_app_setting_set --app=$app --key=language --value=$language
 
 #=================================================
 # STANDARD MODIFICATIONS
