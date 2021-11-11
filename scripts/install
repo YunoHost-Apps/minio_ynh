@@ -405,7 +405,7 @@ ynh_systemd_action --service_name=nginx --action=reload
 ynh_script_progression --message="Configuring MinIO client..." --time --weight=1
 
 pushd $mc_path
-	ynh_exec_warn_less sudo -u minio mc alias set minio $domain $minio_id $minio_key
+	ynh_exec_warn_less sudo -u minio ./mc alias set minio $domain $minio_id $minio_key
 popd
 
 #=================================================
