@@ -42,7 +42,7 @@ is_public=$YNH_APP_ARG_IS_PUBLIC
 app=$YNH_APP_INSTANCE_NAME
 
 minio_id="minio"
-minio_key=`openssl rand -hex 32` # TO BE CHANGED TO RANDOM GEN
+minio_key=$(ynh_string_random)
 
 #=================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
