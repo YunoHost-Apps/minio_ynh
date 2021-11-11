@@ -3,8 +3,8 @@
     "id": "minio",
     "packaging_format": 1,
     "description": {
-        "en": "MinIO is a High Performance, Kubernetes Native Object Storage",
-        "fr": "MinIO est un serveur de stockage d'objets hautes performances"
+        "en": "High Performance, Kubernetes Native Object Storage",
+        "fr": "Serveur de stockage d'objets hautes performances"
     },
     "version": "2021-11-05T09-16-26Z~ynh1",
     "url": "https://min.io/",
