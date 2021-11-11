@@ -62,6 +62,8 @@ ynh_script_progression --message="Validating installation parameters..." --time 
 final_path=/opt/yunohost/$app
 test ! -e "$final_path" || ynh_die --message="This path already contains a folder"
 
+mc_path=$final_path/mc
+
 # Register (book) web path
 ynh_webpath_register --app=$app --domain=$domain --path_url=$path_url
 
@@ -78,6 +80,8 @@ ynh_app_setting_set --app=$app --key=domain --value=$domain
 ynh_app_setting_set --app=$app --key=path --value=$path_url
 ynh_app_setting_set --app=$app --key=minio_id --value=$minio_id
 ynh_app_setting_set --app=$app --key=minio_key --value=$minio_key
+ynh_app_setting_set --app=$app --key=mc_path --value=$mc_path
+
 
 #=================================================
 # STANDARD MODIFICATIONS
@@ -153,6 +157,30 @@ ynh_setup_source --dest_dir="$final_path"
 chmod -R 750 "$final_path"
 chmod -R o-rwx "$final_path"
 chown -R $app:www-data "$final_path"
+
+#=================================================
+# DOWNLOAD, CHECK AND UNPACK MINIO CLIENT
+#=================================================
+ynh_script_progression --message="Setting up MinIO client..." --time --weight=1
+
+ynh_setup_source --dest_dir="$mc_path" --source_id=mc
+
+# FIXME: this should be managed by the core in the future
+# Here, as a packager, you may have to tweak the ownerhsip/permissions
+# such that the appropriate users (e.g. maybe www-data) can access
+# files in some cases.
+# But FOR THE LOVE OF GOD, do not allow r/x for "others" on the entire folder -
+# this will be treated as a security issue.
+chmod -R 750 "$mc_path"
+chmod -R o-rwx "$mc_path"
+chown -R $app:www-data "$mc_path"
+
+#=================================================
+# SETUP MINIO CLIENT
+#=================================================
+ynh_script_progression --message="Setting up MinIO bucket for Outline..." --time --weight=1
+
+$mc_path/mc alias set minio "https://$domain" $minio_id $minio_key
 
 #=================================================
 # NGINX CONFIGURATION
