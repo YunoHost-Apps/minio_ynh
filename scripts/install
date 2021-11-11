@@ -176,13 +176,6 @@ chmod -R o-rwx "$mc_path"
 chown -R $app:www-data "$mc_path"
 
 #=================================================
-# SETUP MINIO CLIENT
-#=================================================
-ynh_script_progression --message="Setting up MinIO bucket for Outline..." --time --weight=1
-
-$mc_path/mc alias set minio "https://$domain" $minio_id $minio_key
-
-#=================================================
 # NGINX CONFIGURATION
 #=================================================
 ynh_script_progression --message="Configuring NGINX web server..." --time --weight=1
@@ -405,6 +398,13 @@ fi
 ynh_script_progression --message="Reloading NGINX web server..." --time --weight=1
 
 ynh_systemd_action --service_name=nginx --action=reload
+
+#=================================================
+# SETUP MINIO CLIENT
+#=================================================
+ynh_script_progression --message="Configuring MinIO client..." --time --weight=1
+
+$mc_path/mc alias set minio "https://$domain" $minio_id $minio_key
 
 #=================================================
 # END OF SCRIPT
