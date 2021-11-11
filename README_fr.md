@@ -1,1 +1,2 @@
-### Serveur MinIO 
+### Serveur MinIO
+[![Integration level](https://dash.yunohost.org/integration/minio.svg)](https://dash.yunohost.org/appci/app/minio)
