@@ -1,5 +1,5 @@
-SOURCE_URL=https://dl.min.io/client/mc/release/linux-amd64/archive/mc.RELEASE.2021-11-05T10-05-06Z
-SOURCE_SUM=9f5ad72fd93678f9f756c6da34a8d4d1e61f7356a96ee327c652ad765975d2b2
+SOURCE_URL=https://dl.min.io/client/mc/release/linux-amd64/archive/mc.RELEASE.2022-01-29T01-03-27Z
+SOURCE_SUM=6bad19afdd2846986c8893935cde4b3f8ea03591575c930b4790602ee03e196c
 SOURCE_SUM_PRG=sha256sum
 SOURCE_IN_SUBDIR=false
 SOURCE_FILENAME=mc
