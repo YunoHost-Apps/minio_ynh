@@ -96,14 +96,14 @@ chmod +x "$final_path/minio"
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK MINIO CLIENT
 #=================================================
-ynh_script_progression --message="Setting up MinIO client..." --time --weight=1
+# ynh_script_progression --message="Setting up MinIO client..." --time --weight=1
 
-ynh_setup_source --dest_dir="$mc_path" --source_id="mc"
+# ynh_setup_source --dest_dir="$mc_path" --source_id="mc"
 
-chmod -R 750 "$mc_path"
-chmod -R o-rwx "$mc_path"
-chown -R $app:www-data "$mc_path"
-chmod +x $mc_path/mc
+# chmod -R 750 "$mc_path"
+# chmod -R o-rwx "$mc_path"
+# chown -R $app:www-data "$mc_path"
+# chmod +x $mc_path/mc
 
 #=================================================
 # NGINX CONFIGURATION
@@ -118,7 +118,7 @@ ynh_add_nginx_config
 #=================================================
 ynh_script_progression --message="Creating a data directory..." --weight=1
 
-datadir=/home/yunohost.app/$app
+datadir="/home/yunohost.app/$app"
 ynh_app_setting_set --app=$app --key=datadir --value=$datadir
 
 mkdir -p $datadir
@@ -193,11 +193,11 @@ sleep 5
 #=================================================
 # SETUP MINIO CLIENT
 #=================================================
-ynh_script_progression --message="Configuring MinIO client..." --time --weight=1
+# ynh_script_progression --message="Configuring MinIO client..." --time --weight=1
 
-pushd $mc_path
-	ynh_exec_warn_less sudo -u $app ./mc alias set minio "https://$domain" "$app" "$minio_key"
-popd
+# pushd $mc_path
+# 	ynh_exec_warn_less sudo -u $app ./mc alias set minio "https://$domain" "$app" "$minio_key"
+# popd
 
 #=================================================
 # END OF SCRIPT
