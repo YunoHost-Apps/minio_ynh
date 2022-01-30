@@ -58,7 +58,17 @@ ynh_script_progression --message="Removing app main directory..." --time --weigh
 
 # Remove the app directory securely
 ynh_secure_remove --file="$final_path"
-ynh_secure_remove --file="$datadir"
+
+#=================================================
+# REMOVE DATA DIR
+#=================================================
+
+# Remove the data directory if --purge option is used
+if [ "${YNH_APP_PURGE:-0}" -eq 1 ]
+then
+	ynh_script_progression --message="Removing app data directory..." --time --weight=1
+	ynh_secure_remove --file="$datadir"
+fi
 
 #=================================================
 # REMOVE NGINX CONFIGURATION
@@ -67,30 +77,6 @@ ynh_script_progression --message="Removing NGINX web server configuration..." --
 
 # Remove the dedicated NGINX config
 ynh_remove_nginx_config
-
-#=================================================
-# CLOSE A PORT
-#=================================================
-
-if yunohost firewall list | grep -q "\- $port$"
-then
-	ynh_script_progression --message="Closing port $port..." --time --weight=1
-	ynh_exec_warn_less yunohost firewall disallow TCP $port
-fi
-
-if yunohost firewall list | grep -q "\- $console_port$"
-then
-	ynh_script_progression --message="Closing port $console_port..." --time --weight=1
-	ynh_exec_warn_less yunohost firewall disallow TCP $port
-fi
-
-#=================================================
-# REMOVE FAIL2BAN CONFIGURATION
-#=================================================
-ynh_script_progression --message="Removing Fail2ban configuration..." --time --weight=1
-
-# Remove the dedicated Fail2Ban config
-ynh_remove_fail2ban_config
 
 #=================================================
 # SPECIFIC REMOVE

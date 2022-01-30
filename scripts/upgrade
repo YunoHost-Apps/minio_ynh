@@ -20,20 +20,13 @@ domain=$(ynh_app_setting_get --app=$app --key=domain)
 port=$(ynh_app_setting_get --app=$app --key=port)
 path_url=$(ynh_app_setting_get --app=$app --key=path)
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
-minio_id=$(ynh_app_setting_get --app=$app --key=minio_id)
 minio_key=$(ynh_app_setting_get --app=$app --key=minio_key)
-
+architecture=$YNH_ARCH
 
 #=================================================
 # CHECK VERSION
 #=================================================
 
-### This helper will compare the version of the currently installed app and the version of the upstream package.
-### $upgrade_type can have 2 different values
-### - UPGRADE_APP if the upstream app version has changed
-### - UPGRADE_PACKAGE if only the YunoHost package has changed
-### ynh_check_app_version_changed will stop the upgrade if the app is up to date.
-### UPGRADE_APP should be used to upgrade the core app only if there's an upgrade to do.
 upgrade_type=$(ynh_check_app_version_changed)
 
 #=================================================
@@ -76,18 +69,13 @@ then
 	ynh_script_progression --message="Upgrading source files..." --time --weight=1
 
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$final_path"
+	ynh_setup_source --dest_dir="$final_path" --source_id="$architecture"
 fi
 
-# FIXME: this should be managed by the core in the future
-# Here, as a packager, you may have to tweak the ownerhsip/permissions
-# such that the appropriate users (e.g. maybe www-data) can access
-# files in some cases.
-# But FOR THE LOVE OF GOD, do not allow r/x for "others" on the entire folder -
-# this will be treated as a security issue.
 chmod 750 "$final_path"
 chmod -R o-rwx "$final_path"
 chown -R $app:$app "$final_path"
+chmod +x "$final_path/minio"
 
 #=================================================
 # NGINX CONFIGURATION
@@ -145,14 +133,6 @@ yunohost service add $app --description="A High Performance, Kubernetes Native O
 ynh_script_progression --message="Starting a systemd service..." --time --weight=1
 
 ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
-
-#=================================================
-# UPGRADE FAIL2BAN
-#=================================================
-ynh_script_progression --message="Reconfiguring Fail2Ban..." --time --weight=1
-
-# Create a dedicated Fail2Ban config
-ynh_add_fail2ban_config --logpath="/var/log/nginx/${domain}-error.log" --failregex="Regex to match into the log for a failed login"
 
 #=================================================
 # RELOAD NGINX
