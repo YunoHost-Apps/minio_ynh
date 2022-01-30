@@ -26,7 +26,7 @@ Some long and extensive description of what the app is and does, lorem ipsum dol
 - Excepteur sint occaecat cupidatat non proident, sunt in culpa."
 
 
-**Shipped version:** 2021-11-05T09-16-26Z~ynh1
+**Shipped version:** 2022.01.28~ynh1
 
 
 
@@ -52,8 +52,7 @@ Some long and extensive description of what the app is and does, lorem ipsum dol
 ## Documentation and resources
 
 * Official app website: https://min.io
-* Official user documentation: https://yunohost.org/apps
-* Official admin documentation: https://yunohost.org/packaging_apps
+* Official admin documentation: https://docs.min.io/
 * Upstream app code repository: https://github.com/minio/minio
 * YunoHost documentation for this app: https://yunohost.org/app_minio
 * Report a bug: https://github.com/YunoHost-Apps/minio_ynh/issues
