@@ -29,8 +29,8 @@ path_url="/"
 is_public=$YNH_APP_ARG_IS_PUBLIC
 minio_key=$(ynh_string_random)
 architecture=$YNH_ARCH
-minio-access-key=$(ynh_string_random --length=10)
-minio-secret-key=$(ynh_string_random --length=32)
+minio_access_key=$(ynh_string_random --length=10)
+minio_secret_key=$(ynh_string_random --length=32)
 
 app=$YNH_APP_INSTANCE_NAME
 
