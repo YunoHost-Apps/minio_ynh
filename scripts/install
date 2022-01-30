@@ -98,11 +98,12 @@ chmod +x "$final_path/minio"
 #=================================================
 ynh_script_progression --message="Setting up MinIO client..." --time --weight=1
 
-ynh_setup_source --dest_dir="$mc_path" --source_id=mc
+ynh_setup_source --dest_dir="$mc_path" --source_id="mc"
 
 chmod -R 750 "$mc_path"
 chmod -R o-rwx "$mc_path"
 chown -R $app:www-data "$mc_path"
+chmod +x $mc_path/mc
 
 #=================================================
 # NGINX CONFIGURATION
@@ -122,12 +123,6 @@ ynh_app_setting_set --app=$app --key=datadir --value=$datadir
 
 mkdir -p $datadir
 
-# FIXME: this should be managed by the core in the future
-# Here, as a packager, you may have to tweak the ownerhsip/permissions
-# such that the appropriate users (e.g. maybe www-data) can access
-# files in some cases.
-# But FOR THE LOVE OF GOD, do not allow r/x for "others" on the entire folder -
-# this will be treated as a security issue.
 chmod 750 "$datadir"
 chmod -R o-rwx "$datadir"
 chown -R $app:www-data "$datadir"
@@ -201,7 +196,7 @@ sleep 5
 ynh_script_progression --message="Configuring MinIO client..." --time --weight=1
 
 pushd $mc_path
-	ynh_exec_warn_less sudo -u minio ./mc alias set minio "https://$domain" "$app" "$minio_key"
+	ynh_exec_warn_less sudo -u $app ./mc alias set minio "https://$domain" "$app" "$minio_key"
 popd
 
 #=================================================
