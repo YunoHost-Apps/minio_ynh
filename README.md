@@ -32,7 +32,7 @@ Some long and extensive description of what the app is and does, lorem ipsum dol
 
 ## Screenshots
 
-![](./doc/screenshots/example.jpg)
+![](./doc/screenshots/minio-browser.jpg)
 
 ## Disclaimers / important information
 

@@ -28,7 +28,7 @@ Some long and extensive description of what the app is and does, lorem ipsum dol
 
 ## Captures d'écran
 
-![](./doc/screenshots/example.jpg)
+![](./doc/screenshots/minio-browser.jpg)
 
 ## Avertissements / informations importantes
 
