@@ -85,13 +85,6 @@ ynh_script_progression --message="Upgrading NGINX web server configuration..." -
 # Create a dedicated NGINX config
 ynh_add_nginx_config
 
-#=================================================
-# UPGRADE DEPENDENCIES
-#=================================================
-ynh_script_progression --message="Upgrading dependencies..." --weight=5
-
-ynh_install_app_dependencies $pkg_dependencies
-
 # #=================================================
 # # ADD A CONFIGURATION
 # #=================================================
