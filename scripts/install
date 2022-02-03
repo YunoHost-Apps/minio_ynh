@@ -130,7 +130,7 @@ chown -R $app:www-data "$datadir"
 #=================================================
 # ADD A CONFIGURATION
 #=================================================
-ynh_script_progression --message="Adding a configuration file..." --weight=1
+ynh_script_progression --message="Adding a configuration file..." --weight=2
 
 ynh_add_config --template="../conf/.env" --destination="$final_path/.env"
 
@@ -158,14 +158,14 @@ ynh_use_logrotate
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
-ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
+ynh_script_progression --message="Integrating service in YunoHost..." --weight=2
 
 yunohost service add $app --description="A High Performance, Kubernetes Native Object Storage" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting a systemd service..." --weight=1
+ynh_script_progression --message="Starting a systemd service..." --weight=3
 
 # Start a systemd service
 ynh_systemd_action --service_name=$app --action="start" --log_path="systemd"
