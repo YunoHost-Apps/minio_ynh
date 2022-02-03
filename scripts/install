@@ -103,7 +103,7 @@ ynh_setup_source --dest_dir="$mc_path" --source_id="mc"
 chmod -R 750 "$mc_path"
 chmod -R o-rwx "$mc_path"
 chown -R $app:www-data "$mc_path"
-chmod +x $mc_path/mc
+chmod +x "$mc_path/mc"
 
 #=================================================
 # NGINX CONFIGURATION
