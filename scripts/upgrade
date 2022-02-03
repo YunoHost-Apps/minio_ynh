@@ -78,6 +78,18 @@ chown -R $app:$app "$final_path"
 chmod +x "$final_path/minio"
 
 #=================================================
+# DOWNLOAD, CHECK AND UNPACK MINIO CLIENT
+#=================================================
+ynh_script_progression --message="Setting up MinIO client..." --weight=1
+
+ynh_setup_source --dest_dir="$mc_path" --source_id="mc"
+
+chmod -R 750 "$mc_path"
+chmod -R o-rwx "$mc_path"
+chown -R $app:www-data "$mc_path"
+chmod +x "$mc_path/mc"
+
+#=================================================
 # NGINX CONFIGURATION
 #=================================================
 ynh_script_progression --message="Upgrading NGINX web server configuration..." --weight=1
