@@ -1,34 +1,29 @@
 {
-    "name": "Example app",
-    "id": "example",
+    "name": "MinIO server",
+    "id": "minio",
     "packaging_format": 1,
     "description": {
-        "en": "Explain in *a few (10~15) words* the purpose of the app or what it actually does (it is meant to give a rough idea to users browsing a catalog of 100+ apps)",
-        "fr": "Expliquez en *quelques* (10~15) mots l'utilité de l'app ou ce qu'elle fait (l'objectif est de donner une idée grossière pour des utilisateurs qui naviguent dans un catalogue de 100+ apps)"
+        "en": "High Performance, Kubernetes Native Object Storage",
+        "fr": "Serveur de stockage d'objets hautes performances"
     },
-    "version": "1.0~ynh1",
-    "url": "https://example.com",
+    "version": "2022.01.28~ynh1",
+    "url": "https://min.io/",
     "upstream": {
-        "license": "free",
-        "website": "https://example.com",
-        "demo": "https://demo.example.com",
-        "admindoc": "https://yunohost.org/packaging_apps",
-        "userdoc": "https://yunohost.org/apps",
-        "code": "https://some.forge.com/example/example"
+        "license": "AGPL-3.0-only",
+        "website": "https://min.io",
+        "admindoc": "https://docs.min.io/",
+        "code": "https://github.com/minio/minio"
     },
-    "license": "free",
+    "license": "AGPL-3.0-only",
     "maintainer": {
-        "name": "John doe",
-        "email": "john.doe@example.com"
+        "name": "Raoul de Limezy"
     },
     "requirements": {
-        "yunohost": ">= 4.1.3"
+        "yunohost": ">= 4.3.0"
     },
-    "multi_instance": true,
+    "multi_instance": false,
     "services": [
-        "nginx",
-        "php7.3-fpm",
-        "mysql"
+        "nginx"
     ],
     "arguments": {
         "install" : [
@@ -37,37 +32,9 @@
                 "type": "domain"
             },
             {
-                "name": "path",
-                "type": "path",
-                "example": "/example",
-                "default": "/example"
-            },
-            {
-                "name": "admin",
-                "type": "user"
-            },
-            {
                 "name": "is_public",
                 "type": "boolean",
                 "default": true
-            },
-            {
-                "name": "language",
-                "type": "string",
-                "ask": {
-                    "en": "Choose the application language",
-                    "fr": "Choisissez la langue de l'application"
-                },
-                "choices": ["fr", "en"],
-                "default": "fr"
-            },
-            {
-                "name": "password",
-                "type": "password",
-                "help": {
-                    "en": "Use the help field to add an information for the admin about this question.",
-                    "fr": "Utilisez le champ aide pour ajouter une information à l'intention de l'administrateur à propos de cette question."
-                }
             }
         ]
     }
