@@ -17,6 +17,7 @@ ynh_script_progression --message="Loading installation settings..." --weight=1
 app=$YNH_APP_INSTANCE_NAME
 
 domain=$(ynh_app_setting_get --app=$app --key=domain)
+console_domain=$(ynh_app_setting_get --app=$app --key=console_domain)
 port=$(ynh_app_setting_get --app=$app --key=port)
 console_port=$(ynh_app_setting_get --app=$app --key=console_port)
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)

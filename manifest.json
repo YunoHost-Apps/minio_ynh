@@ -29,13 +29,17 @@
         "install" : [
             {
                 "name": "domain",
-                "type": "domain"
+                "type": "domain",
+                "example": "minio.domain.tld",
+                "ask": "Enter a domain for MinIO server. This has to be a fully dedicated domain"
             },
             {
-                "name": "is_public",
-                "type": "boolean",
-                "default": true
-            }
+                "name": "console_domain",
+                "type": "domain",
+                "example": "console.minio.domain.tld",
+                "ask": "Enter a domain for MinIO console. This has to be a fully dedicated domain",
+                "optional": true
+            },
         ]
     }
 }

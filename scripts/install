@@ -25,8 +25,9 @@ ynh_abort_if_errors
 #=================================================
 
 domain=$YNH_APP_ARG_DOMAIN
+console_domain=$YNH_APP_ARG_CONSOLE_DOMAIN
 path_url="/"
-is_public=$YNH_APP_ARG_IS_PUBLIC
+is_public=1
 minio_key=$(ynh_string_random)
 architecture=$YNH_ARCH
 
@@ -51,6 +52,7 @@ ynh_webpath_register --app=$app --domain=$domain --path_url=$path_url
 ynh_script_progression --message="Storing installation settings..." --weight=1
 
 ynh_app_setting_set --app=$app --key=domain --value=$domain
+ynh_app_setting_set --app=$app --key=console_domain --value=$console_domain
 ynh_app_setting_set --app=$app --key=path --value=$path_url
 ynh_app_setting_set --app=$app --key=minio_key --value=$minio_key
 ynh_app_setting_set --app=$app --key=mc_path --value=$mc_path
