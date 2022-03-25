@@ -98,7 +98,7 @@ ynh_script_progression --message="Upgrading NGINX web server configuration..." -
 
 # Create a dedicated NGINX config
 ynh_add_nginx_config
-local consolenginxconf="/etc/nginx/conf.d/$console_domain.d/$app.conf"
+consolenginxconf="/etc/nginx/conf.d/$console_domain.d/$app.conf"
 ynh_add_nginx_config --template=../conf/nginx_console.conf --destination="$consolenginxconf"
 
 # #=================================================
