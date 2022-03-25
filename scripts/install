@@ -115,7 +115,7 @@ ynh_script_progression --message="Configuring NGINX web server..." --weight=4
 # Create a dedicated NGINX config
 ynh_add_nginx_config
 consolenginxconf="/etc/nginx/conf.d/$console_domain.d/$app.conf"
-ynh_add_nginx_config --template=../conf/nginx_console.conf --destination="$consolenginxconf"
+ynh_add_config --template=../conf/nginx_console.conf --destination="$consolenginxconf"
 
 #=================================================
 # CREATE DATA DIRECTORY
