@@ -57,6 +57,7 @@ ynh_backup --src_path="$datadir" --is_big
 #=================================================
 
 ynh_backup --src_path="/etc/nginx/conf.d/$domain.d/$app.conf"
+ynh_backup --src_path="/etc/nginx/conf.d/$console_domain.d/$app.conf"
 
 #=================================================
 # SPECIFIC BACKUP
