@@ -39,7 +39,7 @@
                 "example": "console.minio.domain.tld",
                 "ask": "Enter a domain for MinIO console. This has to be a fully dedicated domain",
                 "optional": true
-            },
+            }
         ]
     }
 }
