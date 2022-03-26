@@ -6,7 +6,7 @@
         "en": "High Performance, Kubernetes Native Object Storage",
         "fr": "Serveur de stockage d'objets hautes performances"
     },
-    "version": "2022.01.28~ynh1",
+    "version": "2022.01.28~ynh2",
     "url": "https://min.io/",
     "upstream": {
         "license": "AGPL-3.0-only",
@@ -26,7 +26,7 @@
         "nginx"
     ],
     "arguments": {
-        "install" : [
+        "install": [
             {
                 "name": "domain",
                 "type": "domain"
@@ -35,6 +35,18 @@
                 "name": "is_public",
                 "type": "boolean",
                 "default": true
+            },
+            {
+                "name": "admin",
+                "type": "user"
+            },
+            {
+                "name": "password",
+                "type": "password",
+                "help": {
+                    "en": "Use the help field to add an information for the admin about this question.",
+                    "fr": "Utilisez le champ aide pour ajouter une information à l'intention de l'administrateur à propos de cette question."
+                }
             }
         ]
     }

@@ -21,12 +21,14 @@ port=$(ynh_app_setting_get --app=$app --key=port)
 path_url=$(ynh_app_setting_get --app=$app --key=path)
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 mc_path=$(ynh_app_setting_get --app=$app --key=mc_path)
-minio_key=$(ynh_app_setting_get --app=$app --key=minio_key)
+admin=$(ynh_app_setting_get --app=$app --key=admin)
+password=$(ynh_app_setting_get --app=$app --key=password)
 architecture=$YNH_ARCH
 
 #=================================================
 # CHECK VERSION
 #=================================================
+ynh_script_progression --message="Checking version..."
 
 upgrade_type=$(ynh_check_app_version_changed)
 
@@ -38,6 +40,7 @@ ynh_script_progression --message="Backing up the app before upgrading (may take 
 # Backup the current version of the app
 ynh_backup_before_upgrade
 ynh_clean_setup () {
+	ynh_clean_check_starting
 	# Restore it if the upgrade fails
 	ynh_restore_upgradebackup
 }
@@ -54,6 +57,11 @@ ynh_script_progression --message="Stopping a systemd service..." --weight=2
 ynh_systemd_action --service_name=$app --action="stop" --log_path="systemd"
 
 #=================================================
+# ENSURE DOWNWARD COMPATIBILITY
+#=================================================
+ynh_script_progression --message="Ensuring downward compatibility..."
+
+=================================================
 # CREATE DEDICATED USER
 #=================================================
 ynh_script_progression --message="Making sure dedicated system user exists..." --weight=1
@@ -71,23 +79,13 @@ then
 
 	# Download, check integrity, uncompress and patch the source from app.src
 	ynh_setup_source --dest_dir="$final_path" --source_id="$architecture" --keep="$final_path/.env"
+	ynh_setup_source --dest_dir="$mc_path" --source_id="mc"
 fi
 
 chmod 750 "$final_path"
 chmod -R o-rwx "$final_path"
-chown -R $app:$app "$final_path"
+chown -R $app:www-data "$final_path"
 chmod +x "$final_path/minio"
-
-#=================================================
-# DOWNLOAD, CHECK AND UNPACK MINIO CLIENT
-#=================================================
-ynh_script_progression --message="Setting up MinIO client..." --weight=1
-
-ynh_setup_source --dest_dir="$mc_path" --source_id="mc"
-
-chmod -R 750 "$mc_path"
-chmod -R o-rwx "$mc_path"
-chown -R $app:www-data "$mc_path"
 chmod +x "$mc_path/mc"
 
 #=================================================
@@ -98,15 +96,15 @@ ynh_script_progression --message="Upgrading NGINX web server configuration..." -
 # Create a dedicated NGINX config
 ynh_add_nginx_config
 
-# #=================================================
-# # ADD A CONFIGURATION
-# #=================================================
-# ynh_script_progression --message="Adding a configuration file..." --weight=2
+#=================================================
+# UPDATE A CONFIG FILE
+#=================================================
+ynh_script_progression --message="Updating a configuration file..."
 
-# ynh_add_config --template="../conf/.env" --destination="$final_path/.env"
+ynh_add_config --template="../conf/.env" --destination="$final_path/.env"
 
-# chmod 750 "$final_path/.env"
-# chown $app:$app "$final_path/.env"
+chmod 400 "$final_path/.env"
+chown $app:$app "$final_path/.env"
 
 #=================================================
 # SETUP SYSTEMD
@@ -138,7 +136,7 @@ yunohost service add $app --description="A High Performance, Kubernetes Native O
 #=================================================
 ynh_script_progression --message="Starting a systemd service..." --weight=3
 
-ynh_systemd_action --service_name=$app --action="start" --log_path="systemd"
+ynh_systemd_action --service_name=$app --action="start" --log_path="systemd" --line_match="Console:"
 
 #=================================================
 # RELOAD NGINX
@@ -153,7 +151,7 @@ ynh_systemd_action --service_name=nginx --action=reload
 ynh_script_progression --message="Configuring MinIO client..." --weight=1
 
 pushd $mc_path
- 	ynh_exec_warn_less sudo -u $app ./mc alias set minio "https://$domain" "$app" "$minio_key" --api S3v4
+ 	ynh_exec_warn_less sudo -u $app ./mc alias set minio "https://$domain" "$admin" "$password" --api S3v4
 popd
 
 #=================================================

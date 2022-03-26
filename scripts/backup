@@ -15,7 +15,6 @@ source /usr/share/yunohost/helpers
 #=================================================
 
 ynh_clean_setup () {
-	### Remove this function if there's nothing to clean before calling the remove script.
 	true
 }
 # Exit if an error occurs during the execution of the script
@@ -30,9 +29,7 @@ app=$YNH_APP_INSTANCE_NAME
 
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 domain=$(ynh_app_setting_get --app=$app --key=domain)
-db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 datadir=$(ynh_app_setting_get --app=$app --key=datadir)
-mc_path=$(ynh_app_setting_get --app=$app --key=mc_path)
 
 #=================================================
 # DECLARE DATA AND CONF FILES TO BACKUP

@@ -14,8 +14,7 @@ source /usr/share/yunohost/helpers
 #=================================================
 
 ynh_clean_setup () {
-	### Remove this function if there's nothing to clean before calling the remove script.
-	true
+	ynh_clean_check_starting
 }
 # Exit if an error occurs during the execution of the script
 ynh_abort_if_errors
@@ -27,7 +26,8 @@ ynh_abort_if_errors
 domain=$YNH_APP_ARG_DOMAIN
 path_url="/"
 is_public=$YNH_APP_ARG_IS_PUBLIC
-minio_key=$(ynh_string_random)
+admin=$YNH_APP_ARG_ADMIN
+password=$YNH_APP_ARG_PASSWORD
 architecture=$YNH_ARCH
 
 app=$YNH_APP_INSTANCE_NAME
@@ -52,7 +52,8 @@ ynh_script_progression --message="Storing installation settings..." --weight=1
 
 ynh_app_setting_set --app=$app --key=domain --value=$domain
 ynh_app_setting_set --app=$app --key=path --value=$path_url
-ynh_app_setting_set --app=$app --key=minio_key --value=$minio_key
+ynh_app_setting_set --app=$app --key=admin --value=$admin
+ynh_app_setting_set --app=$app --key=password --value=$password
 ynh_app_setting_set --app=$app --key=mc_path --value=$mc_path
 
 #=================================================
@@ -84,25 +85,14 @@ ynh_system_user_create --username=$app --home_dir="$final_path"
 ynh_script_progression --message="Setting up source files..." --weight=10
 
 ynh_app_setting_set --app=$app --key=final_path --value=$final_path
-
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$final_path" --source_id="$architecture"
+ynh_setup_source --dest_dir="$mc_path" --source_id="mc"
 
-chmod -R 750 "$final_path"
+chmod 750 "$final_path"
 chmod -R o-rwx "$final_path"
 chown -R $app:www-data "$final_path"
 chmod +x "$final_path/minio"
-
-#=================================================
-# DOWNLOAD, CHECK AND UNPACK MINIO CLIENT
-#=================================================
-ynh_script_progression --message="Setting up MinIO client..." --weight=1
-
-ynh_setup_source --dest_dir="$mc_path" --source_id="mc"
-
-chmod -R 750 "$mc_path"
-chmod -R o-rwx "$mc_path"
-chown -R $app:www-data "$mc_path"
 chmod +x "$mc_path/mc"
 
 #=================================================
@@ -114,11 +104,13 @@ ynh_script_progression --message="Configuring NGINX web server..." --weight=4
 ynh_add_nginx_config
 
 #=================================================
+# SPECIFIC SETUP
+#=================================================
 # CREATE DATA DIRECTORY
 #=================================================
 ynh_script_progression --message="Creating a data directory..." --weight=1
 
-datadir="/home/yunohost.app/$app"
+datadir=/home/yunohost.app/$app
 ynh_app_setting_set --app=$app --key=datadir --value=$datadir
 
 mkdir -p $datadir
@@ -134,7 +126,7 @@ ynh_script_progression --message="Adding a configuration file..." --weight=2
 
 ynh_add_config --template="../conf/.env" --destination="$final_path/.env"
 
-chmod 750 "$final_path/.env"
+chmod 400 "$final_path/.env"
 chown $app:$app "$final_path/.env"
 
 #=================================================
@@ -168,7 +160,7 @@ yunohost service add $app --description="A High Performance, Kubernetes Native O
 ynh_script_progression --message="Starting a systemd service..." --weight=3
 
 # Start a systemd service
-ynh_systemd_action --service_name=$app --action="start" --log_path="systemd"
+ynh_systemd_action --service_name=$app --action="start" --log_path="systemd" --line_match="Console:"
 
 #=================================================
 # SETUP SSOWAT
@@ -178,6 +170,8 @@ ynh_script_progression --message="Configuring permissions..." --weight=1
 # Make app public if necessary
 if [ $is_public -eq 1 ]
 then
+	# Everyone can access the app.
+	# The "main" permission is automatically created before the install script.
 	ynh_permission_update --permission="main" --add="visitors"
 fi
 
@@ -194,7 +188,7 @@ ynh_systemd_action --service_name=nginx --action=reload
 ynh_script_progression --message="Configuring MinIO client..." --weight=1
 
 pushd $mc_path
- 	ynh_exec_warn_less sudo -u $app ./mc alias set minio "https://$domain" "$app" "$minio_key" --api S3v4
+ 	ynh_exec_warn_less sudo -u $app ./mc alias set minio "https://$domain" "$admin" "$password" --api S3v4
 popd
 
 #=================================================
