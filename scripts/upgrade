@@ -23,6 +23,8 @@ final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 mc_path=$(ynh_app_setting_get --app=$app --key=mc_path)
 admin=$(ynh_app_setting_get --app=$app --key=admin)
 password=$(ynh_app_setting_get --app=$app --key=password)
+port=$(ynh_app_setting_get --app=$app --key=port)
+console_port=$(ynh_app_setting_get --app=$app --key=console_port)
 architecture=$YNH_ARCH
 
 #=================================================
