@@ -9,9 +9,9 @@ AssertFileIsExecutable=__FINALPATH__/minio
 Type=simple
 User=__APP__
 Group=__APP__
-ProtectProc=invisible
-WorkingDirectory=__FINAL_PATH__/
-EnvironmentFile=__FINAL_PATH__/.env
+#ProtectProc=invisible
+WorkingDirectory=__FINALPATH__/
+EnvironmentFile=__FINALPATH__/.env
 ExecStart=__FINALPATH__/minio server $MINIO_OPTS $MINIO_VOLUMES
 # Let systemd restart this service always
 Restart=always
