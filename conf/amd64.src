@@ -1,5 +1,5 @@
-SOURCE_URL=https://dl.min.io/server/minio/release/linux-amd64/archive/minio.RELEASE.2022-04-16T04-26-02Z
-SOURCE_SUM=cd27696aaa3fc8fdc63f15d84a8ada4efee3b345c35ad2c6a5cc3cc1bc411844
+SOURCE_URL=https://dl.min.io/server/minio/release/linux-amd64/archive/minio.RELEASE.2022-05-19T18-20-59Z
+SOURCE_SUM=0091fda7df1cfbaf0f31ba1e9bff6bacda8963d7cf7e06a0115cd67c21630d7b
 SOURCE_SUM_PRG=sha256sum
 SOURCE_IN_SUBDIR=false
 SOURCE_FILENAME=minio
