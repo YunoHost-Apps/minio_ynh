@@ -19,7 +19,6 @@ MinIO is a High Performance Object Storage released under GNU Affero General Pub
 
 
 **Shipped version:** 2022.05.19~ynh1
-=======
 
 ## Screenshots
 
