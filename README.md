@@ -5,7 +5,7 @@ It shall NOT be edited by hand.
 
 # MinIO server for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/minio.svg)](https://dash.yunohost.org/appci/app/minio) ![](https://ci-apps.yunohost.org/ci/badges/minio.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/minio.maintain.svg)  
+[![Integration level](https://dash.yunohost.org/integration/minio.svg)](https://dash.yunohost.org/appci/app/minio) ![Working status](https://ci-apps.yunohost.org/ci/badges/minio.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/minio.maintain.svg)  
 [![Install MinIO server with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=minio)
 
 *[Lire ce readme en français.](./README_fr.md)*
@@ -20,11 +20,9 @@ MinIO is a High Performance Object Storage released under GNU Affero General Pub
 
 **Shipped version:** 2022.05.19~ynh1
 
-
-
 ## Screenshots
 
-![](./doc/screenshots/minio-browser.png)
+![Screenshot of MinIO server](./doc/screenshots/minio-browser.png)
 
 ## Disclaimers / important information
 
@@ -57,21 +55,22 @@ popd
 ```
 ## Documentation and resources
 
-* Official app website: https://min.io
-* Official admin documentation: https://docs.min.io/
-* Upstream app code repository: https://github.com/minio/minio
-* YunoHost documentation for this app: https://yunohost.org/app_minio
-* Report a bug: https://github.com/YunoHost-Apps/minio_ynh/issues
+* Official app website: <https://min.io>
+* Official admin documentation: <https://docs.min.io/>
+* Upstream app code repository: <https://github.com/minio/minio>
+* YunoHost documentation for this app: <https://yunohost.org/app_minio>
+* Report a bug: <https://github.com/YunoHost-Apps/minio_ynh/issues>
 
 ## Developer info
 
 Please send your pull request to the [testing branch](https://github.com/YunoHost-Apps/minio_ynh/tree/testing).
 
 To try the testing branch, please proceed like that.
-```
+
+``` bash
 sudo yunohost app install https://github.com/YunoHost-Apps/minio_ynh/tree/testing --debug
 or
 sudo yunohost app upgrade minio -u https://github.com/YunoHost-Apps/minio_ynh/tree/testing --debug
 ```
 
-**More info regarding app packaging:** https://yunohost.org/packaging_apps
+**More info regarding app packaging:** <https://yunohost.org/packaging_apps>
