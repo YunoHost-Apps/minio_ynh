@@ -26,7 +26,6 @@ password=$(ynh_app_setting_get --app=$app --key=password)
 port=$(ynh_app_setting_get --app=$app --key=port)
 console_port=$(ynh_app_setting_get --app=$app --key=console_port)
 datadir=$(ynh_app_setting_get --app=$app --key=datadir)
-architecture=$YNH_ARCH
 
 #=================================================
 # CHECK VERSION
@@ -81,8 +80,8 @@ then
 	ynh_script_progression --message="Upgrading source files..." --weight=5
 
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$final_path" --source_id="$architecture" --keep="$final_path/.env"
-	ynh_setup_source --dest_dir="$mc_path" --source_id="mc_$architecture"
+	ynh_setup_source --dest_dir="$final_path" --source_id="$YNH_ARCH" --keep=".env"
+	ynh_setup_source --dest_dir="$mc_path" --source_id="mc_$YNH_ARCH"
 fi
 
 chmod 750 "$final_path"
