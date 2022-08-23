@@ -12,7 +12,8 @@
         "license": "AGPL-3.0-only",
         "website": "https://min.io",
         "admindoc": "https://docs.min.io/",
-        "code": "https://github.com/minio/minio"
+        "code": "https://github.com/minio/minio",
+        "cpe": "cpe:2.3:a:minio:minio"
     },
     "license": "AGPL-3.0-only",
     "maintainer": {
