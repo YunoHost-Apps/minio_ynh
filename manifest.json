@@ -6,7 +6,7 @@
         "en": "High Performance, Kubernetes Native Object Storage",
         "fr": "Serveur de stockage d'objets hautes performances"
     },
-    "version": "2022.08.13~ynh1",
+    "version": "2022.09.01~ynh1",
     "url": "https://min.io/",
     "upstream": {
         "license": "AGPL-3.0-only",
@@ -20,7 +20,7 @@
         "name": "Raoul de Limezy"
     },
     "requirements": {
-        "yunohost": ">= 4.3.0"
+        "yunohost": ">= 11.0.9"
     },
     "multi_instance": false,
     "services": [
