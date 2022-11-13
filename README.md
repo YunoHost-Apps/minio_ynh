@@ -18,8 +18,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 MinIO is a High Performance Object Storage released under GNU Affero General Public License v3.0. It is API compatible with Amazon S3 cloud storage service. Use MinIO to build high performance infrastructure for machine learning, analytics and application data workloads.
 
 
-**Shipped version:** 2022.09.01~ynh1
-
+**Shipped version:** 2022.11.11~ynh1
 
 ## Screenshots
 
