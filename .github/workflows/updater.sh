@@ -65,7 +65,7 @@ case $src in
     src_filename=minio
     ;;
   "mc_amd64")
-    asset_url="https://dl.min.io/client/mc/release/linux-arm64/archive/mc.$mc_version"
+    asset_url="https://dl.min.io/client/mc/release/linux-amd64/archive/mc.$mc_version"
     src_filename=mc
     ;;
   "mc_arm64")
@@ -127,6 +127,7 @@ done
 #=================================================
 
 # Replace new version in manifest
+version=$(sed -E "s/RELEASE\.([0-9-]+)T.+/\1/g" <<< $version | sed -E "s/-/./g")
 echo "$(jq -s --indent 4 ".[] | .version = \"$version~ynh1\"" manifest.json)" > manifest.json
 
 # No need to update the README, yunohost-bot takes care of it
