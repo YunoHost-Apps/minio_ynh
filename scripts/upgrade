@@ -153,7 +153,7 @@ ynh_systemd_action --service_name=nginx --action=reload
 ynh_script_progression --message="Configuring MinIO client..." --weight=1
 
 pushd $mc_path
- 	ynh_exec_warn_less sudo -u $app ./mc alias set minio "https://$domain" "$admin" "$password" --api S3v4
+	ynh_exec_warn_less sudo -u $app ./mc --no-color alias set minio "https://$domain" "$admin" "$password" --api S3v4
 popd
 
 #=================================================
