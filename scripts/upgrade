@@ -159,15 +159,19 @@ ynh_script_progression --message="Ensuring downward compatibility..."
 if [ "$(yunohost app info minio | grep -oEi [0-9]{4})" == "2022" ]
 then
 	ynh_script_progression --message="Migration from Filesystem to Single-Node Single-Drive mode"
-	for d in * ; do
-    	ynh_script_progression --message="Migrating bucket $d"
-    	mv "$d" "DATA_$d"
-    	mkdir "$d"
-    	chmod 750 "$d"
-		chmod -R o-rwx "$d"
-		chown -R $app:www-data "$d"
-		ynh_exec_warn_less sudo -u $app ./mc mirror --preserve --watch "DATA_$d" minio/"$d"
-	done
+	pushd $datadir
+		for d in * ; do
+		ynh_script_progression --message="Migrating bucket $d"
+			mv "$d" "DATA_$d"
+			mkdir "$d"
+			chmod 750 "$d"
+			chmod -R o-rwx "$d"
+			chown -R $app:www-data "$d"
+			pushd $mc_path
+				ynh_exec_warn_less sudo -u $app ./mc mirror --preserve --watch "$datadir/DATA_$d" minio/"$d"
+			popd
+		done
+	popd
 else
 	ynh_script_progression --message="No migration required"
 fi
