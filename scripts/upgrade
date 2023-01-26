@@ -50,6 +50,18 @@ ynh_clean_setup () {
 ynh_abort_if_errors
 
 #=================================================
+# ENSURE DOWNWARD COMPATIBILITY
+#=================================================
+ynh_script_progression --message="Ensuring downward compatibility..."
+
+if ["yunohost app info minio | grep -oEi [0-9]{4}" == "2022"]
+then
+	ynh_script_progression --message="Migration from Filesystem to Single-Node Single-Drive mode"
+else
+	ynh_script_progression --message="No migration required"
+fi
+
+#=================================================
 # STANDARD UPGRADE STEPS
 #=================================================
 # STOP SYSTEMD SERVICE
@@ -57,11 +69,6 @@ ynh_abort_if_errors
 ynh_script_progression --message="Stopping a systemd service..." --weight=2
 
 ynh_systemd_action --service_name=$app --action="stop" --log_path="systemd"
-
-#=================================================
-# ENSURE DOWNWARD COMPATIBILITY
-#=================================================
-ynh_script_progression --message="Ensuring downward compatibility..."
 
 #=================================================
 # CREATE DEDICATED USER
