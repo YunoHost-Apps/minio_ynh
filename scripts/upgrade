@@ -50,18 +50,6 @@ ynh_clean_setup () {
 ynh_abort_if_errors
 
 #=================================================
-# ENSURE DOWNWARD COMPATIBILITY
-#=================================================
-ynh_script_progression --message="Ensuring downward compatibility..."
-
-if [ "$(yunohost app info minio | grep -oEi [0-9]{4})" == "2022" ]
-then
-	ynh_script_progression --message="Migration from Filesystem to Single-Node Single-Drive mode"
-else
-	ynh_script_progression --message="No migration required"
-fi
-
-#=================================================
 # STANDARD UPGRADE STEPS
 #=================================================
 # STOP SYSTEMD SERVICE
@@ -162,6 +150,27 @@ ynh_script_progression --message="Configuring MinIO client..." --weight=1
 pushd $mc_path
 	ynh_exec_warn_less sudo -u $app ./mc --no-color alias set minio "https://$domain" "$admin" "$password" --api S3v4
 popd
+
+#=================================================
+# ENSURE DOWNWARD COMPATIBILITY
+#=================================================
+ynh_script_progression --message="Ensuring downward compatibility..."
+
+if [ "$(yunohost app info minio | grep -oEi [0-9]{4})" == "2022" ]
+then
+	ynh_script_progression --message="Migration from Filesystem to Single-Node Single-Drive mode"
+	for d in * ; do
+    	ynh_script_progression --message="Migrating bucket $d"
+    	mv "$d" "DATA_$d"
+    	mkdir "$d"
+    	chmod 750 "$d"
+		chmod -R o-rwx "$d"
+		chown -R $app:www-data "$d"
+		ynh_exec_warn_less sudo -u $app ./mc mirror --preserve --watch "DATA_$d" minio/"$d"
+	done
+else
+	ynh_script_progression --message="No migration required"
+fi
 
 #=================================================
 # END OF SCRIPT
