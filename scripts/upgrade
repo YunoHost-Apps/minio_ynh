@@ -54,7 +54,7 @@ ynh_abort_if_errors
 #=================================================
 ynh_script_progression --message="Ensuring downward compatibility..."
 
-if [$(yunohost app info minio | grep -oEi [0-9]{4}) == "2022"]
+if [ "$(yunohost app info minio | grep -oEi [0-9]{4})" == "2022" ]
 then
 	ynh_script_progression --message="Migration from Filesystem to Single-Node Single-Drive mode"
 else
