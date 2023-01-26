@@ -168,8 +168,9 @@ then
 			chmod -R o-rwx "$d"
 			chown -R $app:www-data "$d"
 			pushd $mc_path
-				ynh_exec_warn_less sudo -u $app ./mc mirror --preserve --watch "$datadir/DATA_$d" minio/"$d"
+				ynh_exec_warn_less sudo -u $app ./mc mirror --preserve "$datadir/DATA_$d" minio/"$d"
 			popd
+			ynh_secure_remove --file="DATA_$d"
 		done
 	popd
 else
