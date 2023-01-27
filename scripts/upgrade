@@ -170,6 +170,8 @@ then
 				if [ "$d" == "outlinestorage" ]
 				then
 					ynh_exec_warn_less sudo -u $app ./mc policy set public minio/outlinestorage
+				else
+					ynh_script_progression --message="Bucket is migrated and objects are now mirrored. However, make sure to set properly access policy of bucket $d. That part of the migration can't be automated, sorry ! You can log into the minio console to perform your changes."
 				fi
 			popd
 			ynh_secure_remove --file="DATA_$d"
