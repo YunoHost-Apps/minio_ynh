@@ -156,7 +156,7 @@ popd
 #=================================================
 ynh_script_progression --message="Ensuring downward compatibility..."
 
-if [ "$(yunohost app info minio | grep -oEi [0-9]{4})" == "2022" ]
+if ynh_compare_current_package_version --comparison lt --version 2022.12.12~ynh1
 then
 	ynh_script_progression --message="Migration from Filesystem to Single-Node Single-Drive mode"
 	pushd $datadir
