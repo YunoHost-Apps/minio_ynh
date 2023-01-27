@@ -166,6 +166,11 @@ then
 			pushd $mc_path
 				ynh_exec_warn_less sudo -u $app ./mc mb minio/"$d"
 				ynh_exec_warn_less sudo -u $app ./mc mirror --preserve "$datadir/DATA_$d" minio/"$d"
+				# This is a hack, but it will make outline_ynh users' lifes much easier !
+				if [ "$d" == "outlinestorage" ]
+				then
+					ynh_exec_warn_less sudo -u $app ./mc policy set public minio/outlinestorage
+				fi
 			popd
 			ynh_secure_remove --file="DATA_$d"
 		done
