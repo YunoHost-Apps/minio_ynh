@@ -161,20 +161,25 @@ then
 	ynh_script_progression --message="Migration from Filesystem to Single-Node Single-Drive mode"
 	pushd $datadir
 		for d in * ; do
-		ynh_script_progression --message="Migrating bucket $d"
-			mv "$d" "DATA_$d"
-			pushd $mc_path
-				ynh_exec_warn_less sudo -u $app ./mc mb minio/"$d"
-				ynh_exec_warn_less sudo -u $app ./mc mirror --preserve "$datadir/DATA_$d" minio/"$d"
-				# This is a hack, but it will make outline_ynh users' lifes much easier !
-				if [ "$d" == "outlinestorage" ]
-				then
-					ynh_exec_warn_less sudo -u $app ./mc policy set public minio/outlinestorage
-				else
-					ynh_script_progression --message="Bucket is migrated and objects are now mirrored. However, make sure to set properly access policy of bucket $d. That part of the migration can't be automated, sorry ! You can log into the minio console to perform your changes."
-				fi
-			popd
-			ynh_secure_remove --file="DATA_$d"
+		if [ "$d" == "*" ]
+		then
+			ynh_script_progression --message="No buckets to migrate"
+		else
+			ynh_script_progression --message="Migrating bucket $d"
+				mv "$d" "DATA_$d"
+				pushd $mc_path
+					ynh_exec_warn_less sudo -u $app ./mc mb minio/"$d"
+					ynh_exec_warn_less sudo -u $app ./mc mirror --preserve "$datadir/DATA_$d" minio/"$d"
+					# This is a hack, but it will make outline_ynh users' lifes much easier !
+					if [ "$d" == "outlinestorage" ]
+					then
+						ynh_exec_warn_less sudo -u $app ./mc policy set public minio/outlinestorage
+					else
+						ynh_script_progression --message="Bucket is migrated and objects are now mirrored. However, make sure to set properly access policy of bucket $d. That part of the migration can't be automated, sorry ! You can log into the minio console to perform your changes."
+					fi
+				popd
+				ynh_secure_remove --file="DATA_$d"
+		fi
 		done
 	popd
 else
