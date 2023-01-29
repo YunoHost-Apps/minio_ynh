@@ -129,6 +129,19 @@ ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
 yunohost service add $app --description="A High Performance, Kubernetes Native Object Storage" --log="/var/log/$app/$app.log"
 
 #=================================================
+# ENSURE DOWNWARD COMPATIBILITY
+#=================================================
+ynh_script_progression --message="Ensuring downward compatibility..."
+
+if ynh_compare_current_package_version --comparison lt --version 2022.12.12~ynh1
+then
+	ynh_script_progression --message="Moving old Filesystem to secure MinIO start"
+	old = "OLD"
+	mv "$datadir" "$datadir$old"
+	mkdir "$datadir"
+fi
+
+#=================================================
 # START SYSTEMD SERVICE
 #=================================================
 ynh_script_progression --message="Starting a systemd service..." --weight=3
@@ -159,7 +172,7 @@ ynh_script_progression --message="Ensuring downward compatibility..."
 if ynh_compare_current_package_version --comparison lt --version 2022.12.12~ynh1
 then
 	ynh_script_progression --message="Migration from Filesystem to Single-Node Single-Drive mode"
-	pushd $datadir
+	pushd $datadir$old
 		for d in * ; do
 		if [ "$d" == "*" ]
 		then
@@ -169,7 +182,7 @@ then
 				mv "$d" "DATA_$d"
 				pushd $mc_path
 					ynh_exec_warn_less sudo -u $app ./mc mb minio/"$d"
-					ynh_exec_warn_less sudo -u $app ./mc mirror --preserve "$datadir/DATA_$d" minio/"$d"
+					ynh_exec_warn_less sudo -u $app ./mc mirror --preserve "$datadir$old/DATA_$d" minio/"$d"
 					# This is a hack, but it will make outline_ynh users' lifes much easier !
 					if [ "$d" == "outlinestorage" ]
 					then
@@ -182,6 +195,7 @@ then
 		fi
 		done
 	popd
+	ynh_secure_remove --file="$datadir$old"
 else
 	ynh_script_progression --message="No migration required"
 fi
