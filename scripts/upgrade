@@ -136,7 +136,7 @@ ynh_script_progression --message="Ensuring downward compatibility..."
 if ynh_compare_current_package_version --comparison lt --version 2022.12.12~ynh1
 then
 	ynh_script_progression --message="Moving old Filesystem to secure MinIO start"
-	tmp = "/tmp/minio"
+	tmp="/tmp/minio"
 	mv "$datadir" "$tmp"
 	mkdir "$datadir"
 fi
