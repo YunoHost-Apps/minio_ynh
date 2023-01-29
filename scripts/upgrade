@@ -136,8 +136,8 @@ ynh_script_progression --message="Ensuring downward compatibility..."
 if ynh_compare_current_package_version --comparison lt --version 2022.12.12~ynh1
 then
 	ynh_script_progression --message="Moving old Filesystem to secure MinIO start"
-	old = "OLD"
-	mv "$datadir" "$datadir$old"
+	tmp = "/tmp/minio"
+	mv "$datadir" "$tmp"
 	mkdir "$datadir"
 fi
 
@@ -172,7 +172,7 @@ ynh_script_progression --message="Ensuring downward compatibility..."
 if ynh_compare_current_package_version --comparison lt --version 2022.12.12~ynh1
 then
 	ynh_script_progression --message="Migration from Filesystem to Single-Node Single-Drive mode"
-	pushd $datadir$old
+	pushd $tmp
 		for d in * ; do
 		if [ "$d" == "*" ]
 		then
@@ -182,7 +182,7 @@ then
 				mv "$d" "DATA_$d"
 				pushd $mc_path
 					ynh_exec_warn_less sudo -u $app ./mc mb minio/"$d"
-					ynh_exec_warn_less sudo -u $app ./mc mirror --preserve "$datadir$old/DATA_$d" minio/"$d"
+					ynh_exec_warn_less sudo -u $app ./mc mirror --preserve "$tmp/DATA_$d" minio/"$d"
 					# This is a hack, but it will make outline_ynh users' lifes much easier !
 					if [ "$d" == "outlinestorage" ]
 					then
@@ -195,7 +195,7 @@ then
 		fi
 		done
 	popd
-	ynh_secure_remove --file="$datadir$old"
+	ynh_secure_remove --file="$tmp"
 else
 	ynh_script_progression --message="No migration required"
 fi
