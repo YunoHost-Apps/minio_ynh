@@ -172,17 +172,16 @@ ynh_script_progression --message="Ensuring downward compatibility..."
 if ynh_compare_current_package_version --comparison lt --version 2022.12.12~ynh1
 then
 	ynh_script_progression --message="Migration from Filesystem to Single-Node Single-Drive mode"
-	pushd $tmp
+	pushd "$tmp"
 		for d in * ; do
 		if [ "$d" == "*" ]
 		then
 			ynh_script_progression --message="No buckets to migrate"
 		else
 			ynh_script_progression --message="Migrating bucket $d"
-				mv "$d" "DATA_$d"
 				pushd $mc_path
 					ynh_exec_warn_less sudo -u $app ./mc mb minio/"$d"
-					ynh_exec_warn_less sudo -u $app ./mc mirror --preserve "$tmp/DATA_$d" minio/"$d"
+					ynh_exec_warn_less sudo -u $app ./mc mirror --preserve "$tmp/$d" "minio/$d"
 					# This is a hack, but it will make outline_ynh users' lifes much easier !
 					if [ "$d" == "outlinestorage" ]
 					then
