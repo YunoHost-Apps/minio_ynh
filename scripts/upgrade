@@ -59,11 +59,6 @@ ynh_script_progression --message="Stopping a systemd service..." --weight=2
 ynh_systemd_action --service_name=$app --action="stop" --log_path="systemd"
 
 #=================================================
-# ENSURE DOWNWARD COMPATIBILITY
-#=================================================
-ynh_script_progression --message="Ensuring downward compatibility..."
-
-#=================================================
 # CREATE DEDICATED USER
 #=================================================
 ynh_script_progression --message="Making sure dedicated system user exists..." --weight=1
@@ -153,8 +148,43 @@ ynh_systemd_action --service_name=nginx --action=reload
 ynh_script_progression --message="Configuring MinIO client..." --weight=1
 
 pushd $mc_path
- 	ynh_exec_warn_less sudo -u $app ./mc alias set minio "https://$domain" "$admin" "$password" --api S3v4
+	ynh_exec_warn_less sudo -u $app ./mc --no-color alias set minio "https://$domain" "$admin" "$password" --api S3v4
 popd
+
+#=================================================
+# ENSURE DOWNWARD COMPATIBILITY
+#=================================================
+ynh_script_progression --message="Ensuring downward compatibility..."
+
+if ynh_compare_current_package_version --comparison lt --version 2022.12.12~ynh1
+then
+	ynh_script_progression --message="Migration from Filesystem to Single-Node Single-Drive mode"
+	pushd $datadir
+		for d in * ; do
+		if [ "$d" == "*" ]
+		then
+			ynh_script_progression --message="No buckets to migrate"
+		else
+			ynh_script_progression --message="Migrating bucket $d"
+				mv "$d" "DATA_$d"
+				pushd $mc_path
+					ynh_exec_warn_less sudo -u $app ./mc mb minio/"$d"
+					ynh_exec_warn_less sudo -u $app ./mc mirror --preserve "$datadir/DATA_$d" minio/"$d"
+					# This is a hack, but it will make outline_ynh users' lifes much easier !
+					if [ "$d" == "outlinestorage" ]
+					then
+						ynh_exec_warn_less sudo -u $app ./mc policy set public minio/outlinestorage
+					else
+						ynh_script_progression --message="Bucket is migrated and objects are now mirrored. However, make sure to set properly access policy of bucket $d. That part of the migration can't be automated, sorry ! You can log into the minio console to perform your changes."
+					fi
+				popd
+				ynh_secure_remove --file="DATA_$d"
+		fi
+		done
+	popd
+else
+	ynh_script_progression --message="No migration required"
+fi
 
 #=================================================
 # END OF SCRIPT
