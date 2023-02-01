@@ -139,6 +139,9 @@ then
 	tmp="/tmp/minio"
 	mv "$datadir" "$tmp"
 	mkdir "$datadir"
+	chmod 750 "$datadir"
+	chmod -R o-rwx "$datadir"
+	chown -R $app:www-data "$datadir"
 fi
 
 #=================================================
