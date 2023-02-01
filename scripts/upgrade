@@ -138,6 +138,7 @@ then
 	ynh_script_progression --message="Moving old Filesystem to secure MinIO start"
 	tmp="/tmp/minio"
 	ynh_exec_warn_less cp -Ra "$datadir/" "$tmp"
+	ynh_secure_remove --file="$datadir"
 	ynh_exec_warn_less mkdir "$datadir"
 	chmod 750 "$datadir"
 	chmod -R o-rwx "$datadir"
