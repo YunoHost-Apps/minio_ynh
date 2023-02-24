@@ -54,7 +54,7 @@ ynh_abort_if_errors
 #=================================================
 ynh_script_progression --message="Ensuring downward compatibility..."
 
-if ynh_compare_current_package_version --comparison lt --version 2023.02.22~ynh1
+if ynh_compare_current_package_version --comparison le --version 2023.02.22~ynh1
 then
 	ynh_script_progression --message="Moving old Filesystem to secure MinIO start"
 	tmp="/tmp/minio"
