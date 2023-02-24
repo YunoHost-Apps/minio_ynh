@@ -68,6 +68,7 @@ then
 		else
 			ynh_script_progression --message="Moving $d..."
 			ynh_exec_warn_less sudo -u $app ./mc cp --recursive "minio/$d" "$tmp/$d"
+		fi
 		done
 	popd
 	ynh_secure_remove --file="$datadir"
