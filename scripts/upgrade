@@ -70,6 +70,10 @@ then
 			ynh_exec_warn_less sudo -u $app $mc_path/mc mirror --preserve "minio/$d" "$tmp/$d"
 		fi
 		done
+		if ynh_compare_current_package_version --comparison gt --version 2022.09.01~ynh1
+		then
+			ynh_die --message="Sorry, your MinIO instance requires a complex manual migration. Please contact Limezy on the Yunohost forum"
+		fi
 	popd
 	ynh_secure_remove --file="$datadir"
 	ynh_exec_warn_less mkdir "$datadir"
@@ -189,10 +193,6 @@ ynh_script_progression --message="Ensuring downward compatibility..."
 
 if ynh_compare_current_package_version --comparison le --version 2023.02.22~ynh1
 then
-	if ynh_compare_current_package_version --comparison gt --version 2022.09.01~ynh1
-	then
-		ynh_die --message="Sorry, your MinIO instance requires a complex manual migration. Please contact Limezy on the Yunohost forum"
-	fi
 	ynh_script_progression --message="Migration from Filesystem to Single-Node Single-Drive mode"
 	pushd "$tmp/"
 		for d in * ; do
