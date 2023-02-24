@@ -56,7 +56,7 @@ ynh_script_progression --message="Ensuring downward compatibility..."
 
 if ynh_compare_current_package_version --comparison le --version 2023.02.22~ynh1
 then
-	ynh_script_progression --message="Moving old Filesystem to secure MinIO start"
+	ynh_script_progression --message="Mirroring old Filesystem to secure MinIO start"
 	tmp="/tmp/minio"
 	mkdir "$tmp"
 	chown -R $app:www-data "$tmp"
@@ -67,7 +67,7 @@ then
 			ynh_script_progression --message="No buckets to migrate"
 		else
 			ynh_script_progression --message="Moving $d..."
-			ynh_exec_warn_less sudo -u $app $mc_path/mc cp --recursive "minio/$d" "$tmp/"
+			ynh_exec_warn_less sudo -u $app $mc_path/mc mirror --preserve "minio/$d" "$tmp/$d"
 		fi
 		done
 	popd
@@ -189,6 +189,10 @@ ynh_script_progression --message="Ensuring downward compatibility..."
 
 if ynh_compare_current_package_version --comparison le --version 2023.02.22~ynh1
 then
+	if ynh_compare_current_package_version --comparison gt --version 2022.09.01~ynh1
+	then
+		ynh_die --message="Sorry, your MinIO instance requires a complex manual migration. Please contact Limezy on the Yunohost forum"
+	fi
 	ynh_script_progression --message="Migration from Filesystem to Single-Node Single-Drive mode"
 	pushd "$tmp/"
 		for d in * ; do
@@ -199,7 +203,7 @@ then
 			ynh_script_progression --message="Migrating bucket $d"
 				pushd $mc_path
 					ynh_exec_warn_less sudo -u $app ./mc mb minio/"$d"
-					ynh_exec_warn_less sudo -u $app ./mc cp --recursive "$tmp/$d" "minio/$d"
+					ynh_exec_warn_less sudo -u $app ./mc mirror --preserve "$tmp/$d" "minio/$d"
 					# This is a hack, but it will make outline_ynh users' lifes much easier !
 					if [ "$d" == "outlinestorage" ]
 					then
