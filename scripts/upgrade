@@ -187,7 +187,7 @@ popd
 #=================================================
 ynh_script_progression --message="Ensuring downward compatibility..."
 
-if ynh_compare_current_package_version --comparison lt --version 2022.12.12~ynh1
+if ynh_compare_current_package_version --comparison le --version 2023.02.22~ynh1
 then
 	ynh_script_progression --message="Migration from Filesystem to Single-Node Single-Drive mode"
 	pushd "$tmp/"
