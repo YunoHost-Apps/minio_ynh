@@ -76,6 +76,8 @@ then
 	chmod 750 "$datadir"
 	chmod -R o-rwx "$datadir"
 	chown -R $app:www-data "$datadir"
+else
+	ynh_script_progression --message="No migration to be done"
 fi
 
 #=================================================
