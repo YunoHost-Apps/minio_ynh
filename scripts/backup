@@ -46,6 +46,7 @@ ynh_backup --src_path="$final_path"
 # BACKUP THE DATA DIR
 #=================================================
 
+ynh_print_info --message="WARNING : by default, the buckets are not saved (use is big option)..."
 ynh_backup --src_path="$datadir" --is_big
 
 #=================================================
