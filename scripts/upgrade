@@ -67,7 +67,7 @@ then
 			ynh_script_progression --message="No buckets to migrate"
 		else
 			ynh_script_progression --message="Moving $d..."
-			ynh_exec_warn_less sudo -u $app ./mc cp --recursive "minio/$d" "$tmp/$d"
+			ynh_exec_warn_less sudo -u $app $mc_path/mc cp --recursive "minio/$d" "$tmp/$d"
 		fi
 		done
 	popd
