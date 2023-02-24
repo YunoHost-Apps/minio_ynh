@@ -60,7 +60,7 @@ then
 	tmp="/tmp/minio"
 	mkdir "$tmp"
 	chown -R $app:www-data "$tmp"
-	pushd "$tmp/"
+	pushd "$datadir/"
 		for d in * ; do
 		if [ "$d" == "*" ]
 		then
