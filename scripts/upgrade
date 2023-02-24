@@ -199,7 +199,7 @@ then
 			ynh_script_progression --message="Migrating bucket $d"
 				pushd $mc_path
 					ynh_exec_warn_less sudo -u $app ./mc mb minio/"$d"
-					ynh_exec_warn_less sudo -u $app ./mc mirror --preserve "$tmp/$d" "minio/$d"
+					ynh_exec_warn_less sudo -u $app ./mc cp --recursive "$tmp/$d" "minio/$d"
 					# This is a hack, but it will make outline_ynh users' lifes much easier !
 					if [ "$d" == "outlinestorage" ]
 					then
