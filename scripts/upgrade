@@ -50,6 +50,33 @@ ynh_clean_setup () {
 ynh_abort_if_errors
 
 #=================================================
+# ENSURE DOWNWARD COMPATIBILITY
+#=================================================
+ynh_script_progression --message="Ensuring downward compatibility..."
+
+if ynh_compare_current_package_version --comparison lt --version 2022.12.12~ynh1
+then
+	ynh_script_progression --message="Moving old Filesystem to secure MinIO start"
+	tmp="/tmp/minio"
+	mkdir "$tmp"
+	chown -R $app:www-data "$tmp"
+	pushd "$tmp/"
+		for d in * ; do
+		if [ "$d" == "*" ]
+		then
+			ynh_script_progression --message="No buckets to migrate"
+		else
+			ynh_script_progression --message="Moving $d..."
+			ynh_exec_warn_less sudo -u $app ./mc cp --recursive "minio/$d" "$tmp/$d"
+	popd
+	ynh_secure_remove --file="$datadir"
+	ynh_exec_warn_less mkdir "$datadir"
+	chmod 750 "$datadir"
+	chmod -R o-rwx "$datadir"
+	chown -R $app:www-data "$datadir"
+fi
+
+#=================================================
 # STANDARD UPGRADE STEPS
 #=================================================
 # STOP SYSTEMD SERVICE
@@ -127,23 +154,6 @@ ynh_use_logrotate --non-append
 ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
 
 yunohost service add $app --description="A High Performance, Kubernetes Native Object Storage" --log="/var/log/$app/$app.log"
-
-#=================================================
-# ENSURE DOWNWARD COMPATIBILITY
-#=================================================
-ynh_script_progression --message="Ensuring downward compatibility..."
-
-if ynh_compare_current_package_version --comparison lt --version 2022.12.12~ynh1
-then
-	ynh_script_progression --message="Moving old Filesystem to secure MinIO start"
-	tmp="/tmp/minio"
-	ynh_exec_warn_less cp -Ra "$datadir" "$tmp"
-	ynh_secure_remove --file="$datadir"
-	ynh_exec_warn_less mkdir "$datadir"
-	chmod 750 "$datadir"
-	chmod -R o-rwx "$datadir"
-	chown -R $app:www-data "$datadir"
-fi
 
 #=================================================
 # START SYSTEMD SERVICE
