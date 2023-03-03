@@ -70,7 +70,15 @@ then
 			ynh_exec_warn_less sudo -u $app $mc_path/mc mirror --preserve "minio/$d" "$tmp/$d"
 		fi
 		done
-		if ynh_compare_current_package_version --comparison gt --version 2022.09.01~ynh1
+		if ynh_compare_current_package_version --comparison eq --version 2022.09.01~ynh1
+		then
+			ynh_die --message="Sorry, your MinIO instance requires a complex manual migration. Please contact Limezy on the Yunohost forum"
+		fi
+		if ynh_compare_current_package_version --comparison eq --version 2022.11.11~ynh1
+		then
+			ynh_die --message="Sorry, your MinIO instance requires a complex manual migration. Please contact Limezy on the Yunohost forum"
+		fi
+		if ynh_compare_current_package_version --comparison eq --version 2023.01.11~ynh1
 		then
 			ynh_die --message="Sorry, your MinIO instance requires a complex manual migration. Please contact Limezy on the Yunohost forum"
 		fi
