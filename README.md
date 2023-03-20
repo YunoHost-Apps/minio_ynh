@@ -6,6 +6,7 @@ It shall NOT be edited by hand.
 # MinIO server for YunoHost
 
 [![Integration level](https://dash.yunohost.org/integration/minio.svg)](https://dash.yunohost.org/appci/app/minio) ![Working status](https://ci-apps.yunohost.org/ci/badges/minio.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/minio.maintain.svg)
+
 [![Install MinIO server with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=minio)
 
 *[Lire ce readme en français.](./README_fr.md)*
@@ -18,7 +19,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 MinIO is a High Performance Object Storage released under GNU Affero General Public License v3.0. It is API compatible with Amazon S3 cloud storage service. Use MinIO to build high performance infrastructure for machine learning, analytics and application data workloads.
 
 
-**Shipped version:** 2023.01.11~ynh1
+**Shipped version:** 2023.02.22~ynh1
 
 ## Screenshots
 
