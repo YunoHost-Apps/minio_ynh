@@ -6,6 +6,7 @@ It shall NOT be edited by hand.
 # MinIO server pour YunoHost
 
 [![Niveau d’intégration](https://dash.yunohost.org/integration/minio.svg)](https://dash.yunohost.org/appci/app/minio) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/minio.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/minio.maintain.svg)
+
 [![Installer MinIO server avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=minio)
 
 *[Read this readme in english.](./README.md)*
