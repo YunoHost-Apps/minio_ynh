@@ -9,8 +9,6 @@
 source _common.sh
 source /usr/share/yunohost/helpers
 
-mc_path="$install_dir/mc"
-
 #=================================================
 # CHECK VERSION
 #=================================================
@@ -36,7 +34,7 @@ then
 			ynh_script_progression --message="No buckets to migrate"
 		else
 			ynh_script_progression --message="Moving $d..."
-			ynh_exec_warn_less sudo -u $app $mc_path/mc mirror --preserve "minio/$d" "$tmp/$d"
+			ynh_exec_warn_less sudo -u $app $install_dir/mc mirror --preserve "minio/$d" "$tmp/$d"
 		fi
 		done
 		if ynh_compare_current_package_version --comparison eq --version 2022.09.01~ynh1
@@ -79,15 +77,15 @@ then
 	ynh_script_progression --message="Upgrading source files..." --weight=5
 
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$install_dir"  --keep=".env"
-	ynh_setup_source --dest_dir="$mc_path" --source_id="mc_$YNH_ARCH"
+	ynh_setup_source --dest_dir="$install_dir/minio"
+	ynh_setup_source --dest_dir="$install_dir/mc" --source_id="mc"
 fi
 
 chmod 750 "$install_dir"
 chmod -R o-rwx "$install_dir"
 chown -R $app:www-data "$install_dir"
 chmod +x "$install_dir/minio"
-chmod +x "$mc_path/mc"
+chmod +x "$install_dir/mc"
 
 #=================================================
 # NGINX CONFIGURATION
@@ -144,7 +142,7 @@ ynh_systemd_action --service_name=$app --action="start" --log_path="systemd" --l
 #=================================================
 ynh_script_progression --message="Configuring MinIO client..." --weight=1
 
-pushd $mc_path
+pushd $install_dir
 	ynh_exec_warn_less sudo -u $app ./mc --no-color alias set minio "https://$domain" "$admin" "$password" --api S3v4
 popd
 
@@ -163,7 +161,7 @@ then
 			ynh_script_progression --message="No buckets to migrate"
 		else
 			ynh_script_progression --message="Migrating bucket $d"
-				pushd $mc_path
+				pushd $install_dir
 					ynh_exec_warn_less sudo -u $app ./mc mb minio/"$d"
 					ynh_exec_warn_less sudo -u $app ./mc mirror --preserve "$tmp/$d" "minio/$d"
 					# This is a hack, but it will make outline_ynh users' lifes much easier !
