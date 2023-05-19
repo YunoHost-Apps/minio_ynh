@@ -12,20 +12,20 @@ source /usr/share/yunohost/helpers
 #=================================================
 # LOAD SETTINGS
 #=================================================
-ynh_script_progression --message="Loading installation settings..." --weight=1
+#REMOVEME? ynh_script_progression --message="Loading installation settings..." --weight=1
 
-app=$YNH_APP_INSTANCE_NAME
+#REMOVEME? app=$YNH_APP_INSTANCE_NAME
 
-domain=$(ynh_app_setting_get --app=$app --key=domain)
-port=$(ynh_app_setting_get --app=$app --key=port)
-path_url=$(ynh_app_setting_get --app=$app --key=path)
-final_path=$(ynh_app_setting_get --app=$app --key=final_path)
-mc_path=$(ynh_app_setting_get --app=$app --key=mc_path)
-admin=$(ynh_app_setting_get --app=$app --key=admin)
-password=$(ynh_app_setting_get --app=$app --key=password)
-port=$(ynh_app_setting_get --app=$app --key=port)
-console_port=$(ynh_app_setting_get --app=$app --key=console_port)
-datadir=$(ynh_app_setting_get --app=$app --key=datadir)
+#REMOVEME? domain=$(ynh_app_setting_get --app=$app --key=domain)
+#REMOVEME? port=$(ynh_app_setting_get --app=$app --key=port)
+#REMOVEME? path=$(ynh_app_setting_get --app=$app --key=path)
+#REMOVEME? #REMOVEME? install_dir=$(ynh_app_setting_get --app=$app --key=install_dir)
+#REMOVEME? mc_path=$(ynh_app_setting_get --app=$app --key=mc_path)
+#REMOVEME? admin=$(ynh_app_setting_get --app=$app --key=admin)
+#REMOVEME? password=$(ynh_app_setting_get --app=$app --key=password)
+#REMOVEME? port=$(ynh_app_setting_get --app=$app --key=port)
+#REMOVEME? console_port=$(ynh_app_setting_get --app=$app --key=console_port)
+#REMOVEME? data_dir=$(ynh_app_setting_get --app=$app --key=data_dir)
 
 #=================================================
 # CHECK VERSION
@@ -37,17 +37,17 @@ upgrade_type=$(ynh_check_app_version_changed)
 #=================================================
 # BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
 #=================================================
-ynh_script_progression --message="Backing up the app before upgrading (may take a while)..." --weight=1
+#REMOVEME? ynh_script_progression --message="Backing up the app before upgrading (may take a while)..." --weight=1
 
 # Backup the current version of the app
-ynh_backup_before_upgrade
-ynh_clean_setup () {
+#REMOVEME? ynh_backup_before_upgrade
+#REMOVEME? ynh_clean_setup () {
 	ynh_clean_check_starting
 	# Restore it if the upgrade fails
-	ynh_restore_upgradebackup
+#REMOVEME? 	ynh_restore_upgradebackup
 }
 # Exit if an error occurs during the execution of the script
-ynh_abort_if_errors
+#REMOVEME? ynh_abort_if_errors
 
 #=================================================
 # ENSURE DOWNWARD COMPATIBILITY
@@ -60,7 +60,7 @@ then
 	tmp="/tmp/minio"
 	mkdir "$tmp"
 	chown -R $app:www-data "$tmp"
-	pushd "$datadir/"
+	pushd "$data_dir/"
 		for d in * ; do
 		if [ "$d" == "*" ]
 		then
@@ -83,11 +83,11 @@ then
 			ynh_die --message="Sorry, your MinIO instance requires a complex manual migration. Please contact Limezy on the Yunohost forum"
 		fi
 	popd
-	ynh_secure_remove --file="$datadir"
-	ynh_exec_warn_less mkdir "$datadir"
-	chmod 750 "$datadir"
-	chmod -R o-rwx "$datadir"
-	chown -R $app:www-data "$datadir"
+#REMOVEME? 	ynh_secure_remove --file="$data_dir"
+	ynh_exec_warn_less mkdir "$data_dir"
+	chmod 750 "$data_dir"
+	chmod -R o-rwx "$data_dir"
+	chown -R $app:www-data "$data_dir"
 else
 	ynh_script_progression --message="No migration to be done"
 fi
@@ -104,10 +104,10 @@ ynh_systemd_action --service_name=$app --action="stop" --log_path="systemd"
 #=================================================
 # CREATE DEDICATED USER
 #=================================================
-ynh_script_progression --message="Making sure dedicated system user exists..." --weight=1
+#REMOVEME? ynh_script_progression --message="Making sure dedicated system user exists..." --weight=1
 
 # Create a dedicated user (if not existing)
-ynh_system_user_create --username=$app --home_dir="$final_path"
+#REMOVEME? ynh_system_user_create --username=$app --home_dir="$install_dir"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -118,14 +118,14 @@ then
 	ynh_script_progression --message="Upgrading source files..." --weight=5
 
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$final_path" --source_id="$YNH_ARCH" --keep=".env"
+	ynh_setup_source --dest_dir="$install_dir"  --keep=".env"
 	ynh_setup_source --dest_dir="$mc_path" --source_id="mc_$YNH_ARCH"
 fi
 
-chmod 750 "$final_path"
-chmod -R o-rwx "$final_path"
-chown -R $app:www-data "$final_path"
-chmod +x "$final_path/minio"
+chmod 750 "$install_dir"
+chmod -R o-rwx "$install_dir"
+chown -R $app:www-data "$install_dir"
+chmod +x "$install_dir/minio"
 chmod +x "$mc_path/mc"
 
 #=================================================
@@ -141,10 +141,10 @@ ynh_add_nginx_config
 #=================================================
 ynh_script_progression --message="Updating a configuration file..."
 
-ynh_add_config --template="../conf/.env" --destination="$final_path/.env"
+ynh_add_config --template="../conf/.env" --destination="$install_dir/.env"
 
-chmod 400 "$final_path/.env"
-chown $app:$app "$final_path/.env"
+chmod 400 "$install_dir/.env"
+chown $app:$app "$install_dir/.env"
 
 #=================================================
 # SETUP SYSTEMD
@@ -181,9 +181,9 @@ ynh_systemd_action --service_name=$app --action="start" --log_path="systemd" --l
 #=================================================
 # RELOAD NGINX
 #=================================================
-ynh_script_progression --message="Reloading NGINX web server..." --weight=1
+#REMOVEME? ynh_script_progression --message="Reloading NGINX web server..." --weight=1
 
-ynh_systemd_action --service_name=nginx --action=reload
+#REMOVEME? ynh_systemd_action --service_name=nginx --action=reload
 
 #=================================================
 # SETUP MINIO CLIENT
