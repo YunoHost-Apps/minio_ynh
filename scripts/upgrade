@@ -59,6 +59,12 @@ else
 	ynh_script_progression --message="No migration to be done"
 fi
 
+# Retrieve the password from the .env file
+if [ -z $password ];
+then
+	password = $(ynh_read_var_in_file --file="$install_dir/.env" --key="MINIO_ROOT_PASSWORD")
+fi
+
 #=================================================
 # STANDARD UPGRADE STEPS
 #=================================================
