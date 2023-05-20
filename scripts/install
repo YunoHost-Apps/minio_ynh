@@ -17,8 +17,8 @@ source /usr/share/yunohost/helpers
 ynh_script_progression --message="Setting up source files..." --weight=10
 
 # Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source --dest_dir="$install_dir/minio" --source_id="minio" 
-ynh_setup_source --dest_dir="$install_dir/mc" --source_id="mc"
+ynh_setup_source --dest_dir="$install_dir" --source_id="minio" 
+ynh_setup_source --dest_dir="$install_dir" --source_id="mc"
 
 chmod 750 "$install_dir"
 chmod -R o-rwx "$install_dir"
