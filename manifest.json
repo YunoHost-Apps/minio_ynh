@@ -6,7 +6,7 @@
         "en": "High Performance, Kubernetes Native Object Storage",
         "fr": "Serveur de stockage d'objets hautes performances"
     },
-    "version": "2023.02.22~ynh1",
+    "version": "2023.07.11~ynh1",
     "url": "https://min.io/",
     "upstream": {
         "license": "AGPL-3.0-only",
