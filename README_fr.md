@@ -46,7 +46,7 @@ pushd "$mc_path"
 popd
 ```
 
-**Version incluse :** 2023.05.04~ynh2
+**Version incluse :** 2023.09.07~ynh1
 
 ## Captures d’écran
 
