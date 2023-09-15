@@ -4,7 +4,7 @@ MinIO is a High Performance Object Storage released under GNU Affero General Pub
 During the install process, MinIO will install both the MinIO server and MinIO client.
 If your app needs to use an Amazon S3 storage, I recommend to use the MinIO client to create and setup buckets as per your app's requirements. You can have a look at outline_ynh app for reference.
 
-### First step : retrieve MinIO credentials
+### First step: retrieve MinIO credentials
 ```
 #=================================================
 # SETUP MINIO CREDENTIALS
@@ -15,7 +15,7 @@ minio_password=$(ynh_app_setting_get --app="minio" --key=password)
 mc_path=$(ynh_app_setting_get --app="minio" --key=mc_path)
 ```
 
-### Second step : create and setup your bucket
+### Second step: create and setup your bucket
 ```
 #=================================================
 # SETUP MINIO BUCKET

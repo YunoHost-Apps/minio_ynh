@@ -17,8 +17,8 @@ code = "https://github.com/minio/minio"
 cpe = "cpe:2.3:a:minio:minio"
 
 [integration]
-yunohost = ">= 11.1"
-architectures = ["amd64", "arm64"] 
+yunohost = ">= 11.2"
+architectures = ["amd64", "arm64"]
 multi_instance = false
 ldap = "not_relevant"
 sso = "not_relevant"
@@ -28,20 +28,16 @@ ram.runtime = "700M"
 
 [install]
     [install.domain]
-    # this is a generic question - ask strings are automatically handled by Yunohost's core
     type = "domain"
-    full_domain = true
 
     [install.init_main_permission]
     type = "group"
     default = "visitors"
 
     [install.admin]
-    # this is a generic question - ask strings are automatically handled by Yunohost's core
     type = "user"
 
     [install.password]
-    # this is a generic question - ask strings are automatically handled by Yunohost's core
     type = "password"
 
 [resources]
