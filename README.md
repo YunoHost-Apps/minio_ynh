@@ -57,7 +57,6 @@ popd
 * Official app website: <https://min.io>
 * Official admin documentation: <https://docs.min.io/>
 * Upstream app code repository: <https://github.com/minio/minio>
-* YunoHost documentation for this app: <https://yunohost.org/app_minio>
 * Report a bug: <https://github.com/YunoHost-Apps/minio_ynh/issues>
 
 ## Developer info
