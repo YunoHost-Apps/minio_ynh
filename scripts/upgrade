@@ -10,44 +10,10 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# LOAD SETTINGS
-#=================================================
-ynh_script_progression --message="Loading installation settings..." --weight=1
-
-app=$YNH_APP_INSTANCE_NAME
-
-domain=$(ynh_app_setting_get --app=$app --key=domain)
-port=$(ynh_app_setting_get --app=$app --key=port)
-path_url=$(ynh_app_setting_get --app=$app --key=path)
-final_path=$(ynh_app_setting_get --app=$app --key=final_path)
-mc_path=$(ynh_app_setting_get --app=$app --key=mc_path)
-admin=$(ynh_app_setting_get --app=$app --key=admin)
-password=$(ynh_app_setting_get --app=$app --key=password)
-port=$(ynh_app_setting_get --app=$app --key=port)
-console_port=$(ynh_app_setting_get --app=$app --key=console_port)
-datadir=$(ynh_app_setting_get --app=$app --key=datadir)
-
-#=================================================
 # CHECK VERSION
 #=================================================
-ynh_script_progression --message="Checking version..."
 
 upgrade_type=$(ynh_check_app_version_changed)
-
-#=================================================
-# BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
-#=================================================
-ynh_script_progression --message="Backing up the app before upgrading (may take a while)..." --weight=1
-
-# Backup the current version of the app
-ynh_backup_before_upgrade
-ynh_clean_setup () {
-	ynh_clean_check_starting
-	# Restore it if the upgrade fails
-	ynh_restore_upgradebackup
-}
-# Exit if an error occurs during the execution of the script
-ynh_abort_if_errors
 
 #=================================================
 # ENSURE DOWNWARD COMPATIBILITY
@@ -60,14 +26,14 @@ then
 	tmp="/tmp/minio"
 	mkdir "$tmp"
 	chown -R $app:www-data "$tmp"
-	pushd "$datadir/"
+	pushd "$data_dir/"
 		for d in * ; do
 		if [ "$d" == "*" ]
 		then
 			ynh_script_progression --message="No buckets to migrate"
 		else
 			ynh_script_progression --message="Moving $d..."
-			ynh_exec_warn_less sudo -u $app $mc_path/mc mirror --preserve "minio/$d" "$tmp/$d"
+			ynh_exec_warn_less sudo -u $app $install_dir/mc mirror --preserve "minio/$d" "$tmp/$d"
 		fi
 		done
 		if ynh_compare_current_package_version --comparison eq --version 2022.09.01~ynh1
@@ -83,13 +49,18 @@ then
 			ynh_die --message="Sorry, your MinIO instance requires a complex manual migration. Please contact Limezy on the Yunohost forum"
 		fi
 	popd
-	ynh_secure_remove --file="$datadir"
-	ynh_exec_warn_less mkdir "$datadir"
-	chmod 750 "$datadir"
-	chmod -R o-rwx "$datadir"
-	chown -R $app:www-data "$datadir"
+    ynh_secure_remove --file="$data_dir"
+	ynh_exec_warn_less mkdir "$data_dir"
+	chmod 750 "$data_dir"
+	chmod -R o-rwx "$data_dir"
+	chown -R $app:www-data "$data_dir"
 else
 	ynh_script_progression --message="No migration to be done"
+fi
+
+# Retrieve the password from the .env file
+if [ -z "${password:-}" ]; then
+	password=$(ynh_read_var_in_file --file="$install_dir/.env" --key="MINIO_ROOT_PASSWORD")
 fi
 
 #=================================================
@@ -102,14 +73,6 @@ ynh_script_progression --message="Stopping a systemd service..." --weight=2
 ynh_systemd_action --service_name=$app --action="stop" --log_path="systemd"
 
 #=================================================
-# CREATE DEDICATED USER
-#=================================================
-ynh_script_progression --message="Making sure dedicated system user exists..." --weight=1
-
-# Create a dedicated user (if not existing)
-ynh_system_user_create --username=$app --home_dir="$final_path"
-
-#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 
@@ -118,15 +81,15 @@ then
 	ynh_script_progression --message="Upgrading source files..." --weight=5
 
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$final_path" --source_id="$YNH_ARCH" --keep=".env"
-	ynh_setup_source --dest_dir="$mc_path" --source_id="mc_$YNH_ARCH"
+	ynh_setup_source --dest_dir="$install_dir" --source_id="minio" 
+	ynh_setup_source --dest_dir="$install_dir" --source_id="mc"
 fi
 
-chmod 750 "$final_path"
-chmod -R o-rwx "$final_path"
-chown -R $app:www-data "$final_path"
-chmod +x "$final_path/minio"
-chmod +x "$mc_path/mc"
+chmod 750 "$install_dir"
+chmod -R o-rwx "$install_dir"
+chown -R $app:www-data "$install_dir"
+chmod +x "$install_dir/minio"
+chmod +x "$install_dir/mc"
 
 #=================================================
 # NGINX CONFIGURATION
@@ -136,40 +99,23 @@ ynh_script_progression --message="Upgrading NGINX web server configuration..." -
 # Create a dedicated NGINX config
 ynh_add_nginx_config
 
+# Create a dedicated systemd config
+ynh_add_systemd_config
+
+# Use logrotate to manage app-specific logfile(s)
+ynh_use_logrotate --non-append
+
+yunohost service add $app --description="A High Performance, Kubernetes Native Object Storage" --log="/var/log/$app/$app.log"
+
 #=================================================
 # UPDATE A CONFIG FILE
 #=================================================
 ynh_script_progression --message="Updating a configuration file..."
 
-ynh_add_config --template="../conf/.env" --destination="$final_path/.env"
+ynh_add_config --template="../conf/.env" --destination="$install_dir/.env"
 
-chmod 400 "$final_path/.env"
-chown $app:$app "$final_path/.env"
-
-#=================================================
-# SETUP SYSTEMD
-#=================================================
-ynh_script_progression --message="Upgrading systemd configuration..." --weight=1
-
-# Create a dedicated systemd config
-ynh_add_systemd_config
-
-#=================================================
-# GENERIC FINALIZATION
-#=================================================
-# SETUP LOGROTATE
-#=================================================
-ynh_script_progression --message="Upgrading logrotate configuration..." --weight=1
-
-# Use logrotate to manage app-specific logfile(s)
-ynh_use_logrotate --non-append
-
-#=================================================
-# INTEGRATE SERVICE IN YUNOHOST
-#=================================================
-ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
-
-yunohost service add $app --description="A High Performance, Kubernetes Native Object Storage" --log="/var/log/$app/$app.log"
+chmod 400 "$install_dir/.env"
+chown $app:$app "$install_dir/.env"
 
 #=================================================
 # START SYSTEMD SERVICE
@@ -179,18 +125,11 @@ ynh_script_progression --message="Starting a systemd service..." --weight=3
 ynh_systemd_action --service_name=$app --action="start" --log_path="systemd" --line_match="Console:"
 
 #=================================================
-# RELOAD NGINX
-#=================================================
-ynh_script_progression --message="Reloading NGINX web server..." --weight=1
-
-ynh_systemd_action --service_name=nginx --action=reload
-
-#=================================================
 # SETUP MINIO CLIENT
 #=================================================
 ynh_script_progression --message="Configuring MinIO client..." --weight=1
 
-pushd $mc_path
+pushd $install_dir
 	ynh_exec_warn_less sudo -u $app ./mc --no-color alias set minio "https://$domain" "$admin" "$password" --api S3v4
 popd
 
@@ -209,7 +148,7 @@ then
 			ynh_script_progression --message="No buckets to migrate"
 		else
 			ynh_script_progression --message="Migrating bucket $d"
-				pushd $mc_path
+				pushd $install_dir
 					ynh_exec_warn_less sudo -u $app ./mc mb minio/"$d"
 					ynh_exec_warn_less sudo -u $app ./mc mirror --preserve "$tmp/$d" "minio/$d"
 					# This is a hack, but it will make outline_ynh users' lifes much easier !
