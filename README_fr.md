@@ -57,6 +57,7 @@ popd
 * Site officiel de l’app : <https://min.io>
 * Documentation officielle de l’admin : <https://docs.min.io/>
 * Dépôt de code officiel de l’app : <https://github.com/minio/minio>
+* YunoHost Store: <https://apps.yunohost.org/app/minio>
 * Signaler un bug : <https://github.com/YunoHost-Apps/minio_ynh/issues>
 
 ## Informations pour les développeurs
