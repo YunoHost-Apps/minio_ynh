@@ -20,8 +20,11 @@ cpe = "cpe:2.3:a:minio:minio"
 yunohost = ">= 11.2"
 architectures = ["amd64", "arm64"]
 multi_instance = false
+
 ldap = "not_relevant"
+
 sso = "not_relevant"
+
 disk = "150M"
 ram.build = "700M"
 ram.runtime = "700M"
