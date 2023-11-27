@@ -46,7 +46,7 @@ pushd "$mc_path"
 popd
 ```
 
-**Shipped version:** 2023.09.07~ynh1
+**Shipped version:** 2023.11.07~ynh1
 
 ## Screenshots
 
