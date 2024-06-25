@@ -5,7 +5,7 @@ name = "MinIO server"
 description.en = "High Performance, Kubernetes Native Object Storage"
 description.fr = "Serveur de stockage d'objets hautes performances"
 
-version = "2023.09.07~ynh1"
+version = "2023.09.07~ynh2"
 
 maintainers = ["Raoul de Limezy"]
 
@@ -20,8 +20,11 @@ cpe = "cpe:2.3:a:minio:minio"
 yunohost = ">= 11.2"
 architectures = ["amd64", "arm64"]
 multi_instance = false
+
 ldap = "not_relevant"
+
 sso = "not_relevant"
+
 disk = "150M"
 ram.build = "700M"
 ram.runtime = "700M"

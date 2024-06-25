@@ -38,15 +38,15 @@ then
 		done
 		if ynh_compare_current_package_version --comparison eq --version 2022.09.01~ynh1
 		then
-			ynh_die --message="Sorry, your MinIO instance requires a complex manual migration. Please contact Limezy on the Yunohost forum"
+			ynh_die --message="Sorry, your MinIO instance requires a complex manual migration. Please contact Limezy on the YunoHost forum"
 		fi
 		if ynh_compare_current_package_version --comparison eq --version 2022.11.11~ynh1
 		then
-			ynh_die --message="Sorry, your MinIO instance requires a complex manual migration. Please contact Limezy on the Yunohost forum"
+			ynh_die --message="Sorry, your MinIO instance requires a complex manual migration. Please contact Limezy on the YunoHost forum"
 		fi
 		if ynh_compare_current_package_version --comparison eq --version 2023.01.11~ynh1
 		then
-			ynh_die --message="Sorry, your MinIO instance requires a complex manual migration. Please contact Limezy on the Yunohost forum"
+			ynh_die --message="Sorry, your MinIO instance requires a complex manual migration. Please contact Limezy on the YunoHost forum"
 		fi
 	popd
     ynh_secure_remove --file="$data_dir"
@@ -112,7 +112,7 @@ yunohost service add $app --description="A High Performance, Kubernetes Native O
 #=================================================
 ynh_script_progression --message="Updating a configuration file..."
 
-ynh_add_config --template="../conf/.env" --destination="$install_dir/.env"
+ynh_add_config --template=".env" --destination="$install_dir/.env"
 
 chmod 400 "$install_dir/.env"
 chown $app:$app "$install_dir/.env"

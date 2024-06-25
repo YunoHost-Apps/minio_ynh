@@ -18,7 +18,7 @@ No se debe editar a mano.
 
 MinIO is a High Performance Object Storage released under GNU Affero General Public License v3.0. It is API compatible with Amazon S3 cloud storage service. Use MinIO to build high performance infrastructure for machine learning, analytics and application data workloads.
 
-## How to create a Yunohost app using MinIO
+## How to create a YunoHost app using MinIO
 During the install process, MinIO will install both the MinIO server and MinIO client.
 If your app needs to use an Amazon S3 storage, I recommend to use the MinIO client to create and setup buckets as per your app's requirements. You can have a look at outline_ynh app for reference.
 
@@ -46,7 +46,7 @@ pushd "$mc_path"
 popd
 ```
 
-**Versión actual:** 2023.09.07~ynh1
+**Versión actual:** 2023.09.07~ynh2
 
 ## Capturas
 
