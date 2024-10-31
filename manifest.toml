@@ -5,9 +5,9 @@ name = "MinIO server"
 description.en = "High Performance, Kubernetes Native Object Storage"
 description.fr = "Serveur de stockage d'objets hautes performances"
 
-version = "2023.09.07~ynh2"
+version = "2024.10.29~ynh1"
 
-maintainers = ["Raoul de Limezy"]
+maintainers = [""]
 
 [upstream]
 license = "AGPL-3.0-only"
@@ -49,21 +49,21 @@ ram.runtime = "700M"
         extract = false
         in_subdir = false
 
-        arm64.url = "https://dl.min.io/server/minio/release/linux-arm64/archive/minio.RELEASE.2023-09-07T02-05-02Z"
-        arm64.sha256 = "b32d3ab56d2184220b3a0cb7d82fd5f8659f61230f6d8047a8ce09ed1d20e291"
+        arm64.url = "https://dl.min.io/server/minio/release/linux-arm64/archive/minio.RELEASE.2024-10-29T16-01-48Z"
+        arm64.sha256 = "2458a9291be68a874400d1e1c0725eccc24fd55c8123b32c0416b09daa52210c"
 
-        amd64.url = "https://dl.min.io/server/minio/release/linux-amd64/archive/minio.RELEASE.2023-09-07T02-05-02Z"
-        amd64.sha256 = "d6c6a13c25b91893ffcd8fc4a2bdb4f0653352705cbf38fcb3eadbe7dec93e0f"
+        amd64.url = "https://dl.min.io/server/minio/release/linux-amd64/archive/minio.RELEASE.2024-10-29T16-01-48Z"
+        amd64.sha256 = "b9513f863a6ec6141065c7357284973ee1cb54b16310c168371460297e82c448"
 
         [resources.sources.mc]
         extract = false
         in_subdir = false
 
-        arm64.url = "https://dl.min.io/client/mc/release/linux-arm64/archive/mc.RELEASE.2023-09-07T22-48-55Z"
-        arm64.sha256 = "6af5567ae0cc2195a524d62655344dfdcdc677a6457f192cca7752e389898403"
+        arm64.url = "https://dl.min.io/client/mc/release/linux-arm64/archive/mc.RELEASE.2024-10-29T15-34-59Z"
+        arm64.sha256 = "a0312659c887da8e7f2427a7829bca34cdd29bd4c4af19bd7c4155156d00f543"
 
-        amd64.url = "https://dl.min.io/client/mc/release/linux-amd64/archive/mc.RELEASE.2023-09-07T22-48-55Z"
-        amd64.sha256 = "e3beda5f8c7622eb263a0218d07fb0dabc11c121d1d8a086c6f110b905faf351"
+        amd64.url = "https://dl.min.io/client/mc/release/linux-amd64/archive/mc.RELEASE.2024-10-29T15-34-59Z"
+        amd64.sha256 = "a8a31621b4ad257583fb569fe31cfd72cf40e0b9b636971963c4815852c26914"
 
     [resources.system_user]
 
