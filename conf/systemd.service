@@ -3,7 +3,7 @@ Description=MinIO
 Documentation=https://docs.min.io
 Wants=network-online.target
 After=network-online.target
-AssertFileIsExecutable=__INSTALL_DIR__/minio
+AssertFileIsExecutable=__INSTALL_DIR__/minio --quiet
 
 [Service]
 Type=simple
