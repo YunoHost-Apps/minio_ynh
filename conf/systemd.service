@@ -13,7 +13,6 @@ Group=__APP__
 WorkingDirectory=__INSTALL_DIR__/
 EnvironmentFile=__INSTALL_DIR__/.env
 ExecStart=__INSTALL_DIR__/minio server $MINIO_OPTS $MINIO_VOLUMES
-# Let systemd restart this service always
 Restart=always
 
 # Specifies the maximum file descriptor number that can be opened by this process
