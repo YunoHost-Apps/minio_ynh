@@ -5,7 +5,7 @@ name = "MinIO"
 description.en = "High Performance, Kubernetes Native Object Storage"
 description.fr = "Serveur de stockage d'objets hautes performances"
 
-version = "2025.02.18~ynh2"
+version = "2025.02.28~ynh1"
 
 maintainers = []
 
