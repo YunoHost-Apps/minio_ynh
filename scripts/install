@@ -29,7 +29,7 @@ ynh_config_add_systemd
 # Use logrotate to manage application logfile(s)
 ynh_config_add_logrotate
 
-yunohost service add $app --description="A High Performance, Kubernetes Native Object Storage" --log="/var/log/$app/$app.log"
+yunohost service add $app --description="High Performance Storage" --log="/var/log/$app/$app.log"
 
 #=================================================
 # ADD A CONFIGURATION
