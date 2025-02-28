@@ -22,8 +22,8 @@ helpers_version = "2.1"
 architectures = ["amd64", "arm64"]
 multi_instance = false
 
-ldap = "not_relevant"
-sso = "not_relevant"
+ldap = false
+sso = false
 
 disk = "150M"
 ram.build = "700M"
