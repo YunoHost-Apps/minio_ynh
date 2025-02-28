@@ -33,6 +33,10 @@ ram.runtime = "700M"
     [install.domain]
     type = "domain"
 
+    [install.path]
+    type = "path"
+    default = "/minio"
+
     [install.init_main_permission]
     type = "group"
     default = "visitors"
