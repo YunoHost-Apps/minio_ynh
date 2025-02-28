@@ -3,20 +3,22 @@ Este archivo README esta generado automaticamente<https://github.com/YunoHost/ap
 No se debe editar a mano.
 -->
 
-# MinIO server para Yunohost
+# MinIO para Yunohost
 
-[![Nivel de integración](https://dash.yunohost.org/integration/minio.svg)](https://dash.yunohost.org/appci/app/minio) ![Estado funcional](https://ci-apps.yunohost.org/ci/badges/minio.status.svg) ![Estado En Mantención](https://ci-apps.yunohost.org/ci/badges/minio.maintain.svg)
+[![Nivel de integración](https://apps.yunohost.org/badge/integration/minio)](https://ci-apps.yunohost.org/ci/apps/minio/)
+![Estado funcional](https://apps.yunohost.org/badge/state/minio)
+![Estado En Mantención](https://apps.yunohost.org/badge/maintained/minio)
 
-[![Instalar MinIO server con Yunhost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=minio)
+[![Instalar MinIO con Yunhost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=minio)
 
 *[Leer este README en otros idiomas.](./ALL_README.md)*
 
-> *Este paquete le permite instalarMinIO server rapidamente y simplement en un servidor YunoHost.*  
+> *Este paquete le permite instalarMinIO rapidamente y simplement en un servidor YunoHost.*  
 > *Si no tiene YunoHost, visita [the guide](https://yunohost.org/install) para aprender como instalarla.*
 
 ## Descripción general
 
-MinIO is a High Performance Object Storage released under GNU Affero General Public License v3.0. It is API compatible with Amazon S3 cloud storage service. Use MinIO to build high performance infrastructure for machine learning, analytics and application data workloads.
+MinIO is a High Performance Object Storage. It is API compatible with Amazon S3 cloud storage service. Use MinIO to build high performance infrastructure for machine learning, analytics and application data workloads.
 
 ## How to create a YunoHost app using MinIO
 During the install process, MinIO will install both the MinIO server and MinIO client.
@@ -46,11 +48,11 @@ pushd "$mc_path"
 popd
 ```
 
-**Versión actual:** 2023.09.07~ynh2
+**Versión actual:** 2025.02.18~ynh1
 
 ## Capturas
 
-![Captura de MinIO server](./doc/screenshots/minio-browser.png)
+![Captura de MinIO](./doc/screenshots/minio-browser.png)
 
 ## Documentaciones y recursos
 
@@ -62,7 +64,7 @@ popd
 
 ## Información para desarrolladores
 
-Por favor enviar sus correcciones a la [`branch testing`](https://github.com/YunoHost-Apps/minio_ynh/tree/testing
+Por favor enviar sus correcciones a la [rama `testing`](https://github.com/YunoHost-Apps/minio_ynh/tree/testing).
 
 Para probar la rama `testing`, sigue asÍ:
 
