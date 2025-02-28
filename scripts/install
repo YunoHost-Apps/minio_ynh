@@ -49,7 +49,7 @@ ynh_systemctl --service=$app --action="start" --log_path="systemd" --wait_until=
 #=================================================
 # SETUP MINIO CLIENT
 #=================================================
-ynh_script_progression "Configuring MinIO client..."
+ynh_script_progression "Configuring $app client..."
 
 pushd $install_dir
 	ynh_hide_warnings ynh_exec_as_app ./mc --no-color alias set minio "http://127.0.0.1:$port" "$admin" "$password" --api S3v4
