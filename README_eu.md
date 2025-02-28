@@ -3,20 +3,22 @@ Ohart ongi: README hau automatikoki sortu da <https://github.com/YunoHost/apps/t
 EZ editatu eskuz.
 -->
 
-# MinIO server YunoHost-erako
+# MinIO YunoHost-erako
 
-[![Integrazio maila](https://dash.yunohost.org/integration/minio.svg)](https://dash.yunohost.org/appci/app/minio) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/minio.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/minio.maintain.svg)
+[![Integrazio maila](https://apps.yunohost.org/badge/integration/minio)](https://ci-apps.yunohost.org/ci/apps/minio/)
+![Funtzionamendu egoera](https://apps.yunohost.org/badge/state/minio)
+![Mantentze egoera](https://apps.yunohost.org/badge/maintained/minio)
 
-[![Instalatu MinIO server YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=minio)
+[![Instalatu MinIO YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=minio)
 
 *[Irakurri README hau beste hizkuntzatan.](./ALL_README.md)*
 
-> *Pakete honek MinIO server YunoHost zerbitzari batean azkar eta zailtasunik gabe instalatzea ahalbidetzen dizu.*  
+> *Pakete honek MinIO YunoHost zerbitzari batean azkar eta zailtasunik gabe instalatzea ahalbidetzen dizu.*  
 > *YunoHost ez baduzu, kontsultatu [gida](https://yunohost.org/install) nola instalatu ikasteko.*
 
 ## Aurreikuspena
 
-MinIO is a High Performance Object Storage released under GNU Affero General Public License v3.0. It is API compatible with Amazon S3 cloud storage service. Use MinIO to build high performance infrastructure for machine learning, analytics and application data workloads.
+MinIO is a High Performance Object Storage. It is API compatible with Amazon S3 cloud storage service. Use MinIO to build high performance infrastructure for machine learning, analytics and application data workloads.
 
 ## How to create a YunoHost app using MinIO
 During the install process, MinIO will install both the MinIO server and MinIO client.
@@ -46,11 +48,11 @@ pushd "$mc_path"
 popd
 ```
 
-**Paketatutako bertsioa:** 2023.09.07~ynh2
+**Paketatutako bertsioa:** 2025.02.18~ynh1
 
 ## Pantaila-argazkiak
 
-![MinIO server(r)en pantaila-argazkia](./doc/screenshots/minio-browser.png)
+![MinIO(r)en pantaila-argazkia](./doc/screenshots/minio-browser.png)
 
 ## Dokumentazioa eta baliabideak
 

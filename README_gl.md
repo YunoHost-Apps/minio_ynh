@@ -3,20 +3,22 @@ NOTA: Este README foi creado automáticamente por <https://github.com/YunoHost/a
 NON debe editarse manualmente.
 -->
 
-# MinIO server para YunoHost
+# MinIO para YunoHost
 
-[![Nivel de integración](https://dash.yunohost.org/integration/minio.svg)](https://dash.yunohost.org/appci/app/minio) ![Estado de funcionamento](https://ci-apps.yunohost.org/ci/badges/minio.status.svg) ![Estado de mantemento](https://ci-apps.yunohost.org/ci/badges/minio.maintain.svg)
+[![Nivel de integración](https://apps.yunohost.org/badge/integration/minio)](https://ci-apps.yunohost.org/ci/apps/minio/)
+![Estado de funcionamento](https://apps.yunohost.org/badge/state/minio)
+![Estado de mantemento](https://apps.yunohost.org/badge/maintained/minio)
 
-[![Instalar MinIO server con YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=minio)
+[![Instalar MinIO con YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=minio)
 
 *[Le este README en outros idiomas.](./ALL_README.md)*
 
-> *Este paquete permíteche instalar MinIO server de xeito rápido e doado nun servidor YunoHost.*  
+> *Este paquete permíteche instalar MinIO de xeito rápido e doado nun servidor YunoHost.*  
 > *Se non usas YunoHost, le a [documentación](https://yunohost.org/install) para saber como instalalo.*
 
 ## Vista xeral
 
-MinIO is a High Performance Object Storage released under GNU Affero General Public License v3.0. It is API compatible with Amazon S3 cloud storage service. Use MinIO to build high performance infrastructure for machine learning, analytics and application data workloads.
+MinIO is a High Performance Object Storage. It is API compatible with Amazon S3 cloud storage service. Use MinIO to build high performance infrastructure for machine learning, analytics and application data workloads.
 
 ## How to create a YunoHost app using MinIO
 During the install process, MinIO will install both the MinIO server and MinIO client.
@@ -46,11 +48,11 @@ pushd "$mc_path"
 popd
 ```
 
-**Versión proporcionada:** 2023.09.07~ynh2
+**Versión proporcionada:** 2025.02.18~ynh1
 
 ## Capturas de pantalla
 
-![Captura de pantalla de MinIO server](./doc/screenshots/minio-browser.png)
+![Captura de pantalla de MinIO](./doc/screenshots/minio-browser.png)
 
 ## Documentación e recursos
 
