@@ -49,10 +49,10 @@ ram.runtime = "700M"
         [resources.sources.minio]
         extract = false
         in_subdir = false
-        amd64.url = "https://dl.min.io/server/minio/release/linux-amd64/archive/minio.RELEASE.2025-02-18T16-25-55Z"
-        amd64.sha256 = "46ee8ac67860b3816f80e47c2220dc06b12ee257e65689639aa74ada0c4ad5f3"
-        arm64.url = "https://dl.min.io/server/minio/release/linux-arm64/archive/minio.RELEASE.2025-02-18T16-25-55Z"
-        arm64.sha256 = "09eea7b83d91a889a82ace13283ee7ae00c3b44a07a566c47e1a1a22411405ba"
+        amd64.url = "https://dl.min.io/server/minio/release/linux-amd64/archive/minio.RELEASE.2025-02-28T09-55-16Z"
+        amd64.sha256 = "5cb1e6309f2bd70e7d0ca77f33782beac1745790deb4c1f94444f1e7dec5fcb6"
+        arm64.url = "https://dl.min.io/server/minio/release/linux-arm64/archive/minio.RELEASE.2025-02-28T09-55-16Z"
+        arm64.sha256 = "f92539f2e9277d49ff939bf206cce6caf38f41dbee2fd08595cd72600b738b61"
 
         [resources.sources.mc]
         extract = false
