@@ -7,7 +7,7 @@ description.fr = "Serveur de stockage d'objets hautes performances"
 
 version = "2025.02.18~ynh1"
 
-maintainers = ["Raoul de Limezy"]
+maintainers = []
 
 [upstream]
 license = "AGPL-3.0-only"
