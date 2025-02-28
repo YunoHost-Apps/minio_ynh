@@ -15,8 +15,8 @@ ynh_backup "$install_dir"
 #=================================================
 # BACKUP THE DATA DIR
 #=================================================
+ynh_print_info "WARNING: by default, the buckets are not saved (use is big option)..."
 
-ynh_print_info "WARNING : by default, the buckets are not saved (use is big option)..."
 ynh_backup "$data_dir"
 
 #=================================================
