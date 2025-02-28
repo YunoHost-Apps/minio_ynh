@@ -1,11 +1,11 @@
 packaging_format = 2
 
 id = "minio"
-name = "MinIO server"
+name = "MinIO"
 description.en = "High Performance, Kubernetes Native Object Storage"
 description.fr = "Serveur de stockage d'objets hautes performances"
 
-version = "2024.10.29~ynh1"
+version = "2025.02.18~ynh1"
 
 maintainers = ["Raoul de Limezy"]
 
