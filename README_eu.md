@@ -21,7 +21,7 @@ EZ editatu eskuz.
 MinIO is a High Performance Object Storage. It is API compatible with Amazon S3 cloud storage service. Use MinIO to build high performance infrastructure for machine learning, analytics and application data workloads.
 
 
-**Paketatutako bertsioa:** 2025.02.18~ynh1
+**Paketatutako bertsioa:** 2025.02.18~ynh2
 
 ## Pantaila-argazkiak
 
