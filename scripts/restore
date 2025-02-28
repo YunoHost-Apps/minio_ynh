@@ -35,7 +35,7 @@ systemctl enable $app.service --quiet
 
 ynh_restore "/etc/logrotate.d/$app"
 
-yunohost service add $app --description="A High Performance, Kubernetes Native Object Storage" --log="/var/log/$app/$app.log"
+yunohost service add $app --description="High Performance Storage" --log="/var/log/$app/$app.log"
 
 #=================================================
 # RELOAD NGINX AND PHP-FPM OR THE APP SERVICE
