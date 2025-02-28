@@ -21,7 +21,7 @@ Il NE doit PAS être modifié à la main.
 MinIO est un système de stockage objet haute performance. Il est compatible avec l'API du service de stockage en nuage Amazon S3. Utilisez MinIO pour construire une infrastructure haute performance pour l'apprentissage automatique, l'analyse et les charges de travail de données d'application.
 
 
-**Version incluse :** 2025.02.18~ynh2
+**Version incluse :** 2025.02.28~ynh1
 
 ## Captures d’écran
 
