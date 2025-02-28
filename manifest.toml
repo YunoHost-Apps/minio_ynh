@@ -7,7 +7,7 @@ description.fr = "Serveur de stockage d'objets hautes performances"
 
 version = "2024.10.29~ynh1"
 
-maintainers = [""]
+maintainers = []
 
 [upstream]
 license = "AGPL-3.0-only"
