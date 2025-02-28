@@ -25,7 +25,7 @@ MinIO est un système de stockage objet haute performance. Il est compatible ave
 
 ## Captures d’écran
 
-![Capture d’écran de MinIO](./doc/screenshots/minio-browser.png)
+![Capture d’écran de MinIO](./doc/screenshots/screenshot.png)
 
 ## Documentations et ressources
 

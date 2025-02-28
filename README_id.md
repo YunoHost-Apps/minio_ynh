@@ -25,7 +25,7 @@ MinIO is a High Performance Object Storage. It is API compatible with Amazon S3 
 
 ## Tangkapan Layar
 
-![Tangkapan Layar pada MinIO](./doc/screenshots/minio-browser.png)
+![Tangkapan Layar pada MinIO](./doc/screenshots/screenshot.png)
 
 ## Dokumentasi dan sumber daya
 
