@@ -72,5 +72,5 @@ ram.runtime = "700M"
     main.auth_header = false
 
     [resources.ports]
-    main.default = 9000
-    console.default = 36669
+    main.default
+    console.default
