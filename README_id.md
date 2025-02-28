@@ -1,22 +1,22 @@
 <!--
-注意：此 README 由 <https://github.com/YunoHost/apps/tree/master/tools/readme_generator> 自动生成
-请勿手动编辑。
+N.B.: README ini dibuat secara otomatis oleh <https://github.com/YunoHost/apps/tree/master/tools/readme_generator>
+Ini TIDAK boleh diedit dengan tangan.
 -->
 
-# YunoHost 上的 MinIO
+# MinIO untuk YunoHost
 
-[![集成程度](https://apps.yunohost.org/badge/integration/minio)](https://ci-apps.yunohost.org/ci/apps/minio/)
-![工作状态](https://apps.yunohost.org/badge/state/minio)
-![维护状态](https://apps.yunohost.org/badge/maintained/minio)
+[![Tingkat integrasi](https://apps.yunohost.org/badge/integration/minio)](https://ci-apps.yunohost.org/ci/apps/minio/)
+![Status kerja](https://apps.yunohost.org/badge/state/minio)
+![Status pemeliharaan](https://apps.yunohost.org/badge/maintained/minio)
 
-[![使用 YunoHost 安装 MinIO](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=minio)
+[![Pasang MinIO dengan YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=minio)
 
-*[阅读此 README 的其它语言版本。](./ALL_README.md)*
+*[Baca README ini dengan bahasa yang lain.](./ALL_README.md)*
 
-> *通过此软件包，您可以在 YunoHost 服务器上快速、简单地安装 MinIO。*  
-> *如果您还没有 YunoHost，请参阅[指南](https://yunohost.org/install)了解如何安装它。*
+> *Paket ini memperbolehkan Anda untuk memasang MinIO secara cepat dan mudah pada server YunoHost.*  
+> *Bila Anda tidak mempunyai YunoHost, silakan berkonsultasi dengan [panduan](https://yunohost.org/install) untuk mempelajari bagaimana untuk memasangnya.*
 
-## 概况
+## Ringkasan
 
 MinIO is a High Performance Object Storage. It is API compatible with Amazon S3 cloud storage service. Use MinIO to build high performance infrastructure for machine learning, analytics and application data workloads.
 
@@ -48,30 +48,30 @@ pushd "$mc_path"
 popd
 ```
 
-**分发版本：** 2025.02.18~ynh1
+**Versi terkirim:** 2025.02.18~ynh1
 
-## 截图
+## Tangkapan Layar
 
-![MinIO 的截图](./doc/screenshots/minio-browser.png)
+![Tangkapan Layar pada MinIO](./doc/screenshots/minio-browser.png)
 
-## 文档与资源
+## Dokumentasi dan sumber daya
 
-- 官方应用网站： <https://min.io>
-- 官方管理文档： <https://docs.min.io/>
-- 上游应用代码库： <https://github.com/minio/minio>
-- YunoHost 商店： <https://apps.yunohost.org/app/minio>
-- 报告 bug： <https://github.com/YunoHost-Apps/minio_ynh/issues>
+- Website aplikasi resmi: <https://min.io>
+- Dokumentasi admin resmi: <https://docs.min.io/>
+- Depot kode aplikasi hulu: <https://github.com/minio/minio>
+- Gudang YunoHost: <https://apps.yunohost.org/app/minio>
+- Laporkan bug: <https://github.com/YunoHost-Apps/minio_ynh/issues>
 
-## 开发者信息
+## Info developer
 
-请向 [`testing` 分支](https://github.com/YunoHost-Apps/minio_ynh/tree/testing) 发送拉取请求。
+Silakan kirim pull request ke [`testing` branch](https://github.com/YunoHost-Apps/minio_ynh/tree/testing).
 
-如要尝试 `testing` 分支，请这样操作：
+Untuk mencoba branch `testing`, silakan dilanjutkan seperti:
 
 ```bash
 sudo yunohost app install https://github.com/YunoHost-Apps/minio_ynh/tree/testing --debug
-或
+atau
 sudo yunohost app upgrade minio -u https://github.com/YunoHost-Apps/minio_ynh/tree/testing --debug
 ```
 
-**有关应用打包的更多信息：** <https://yunohost.org/packaging_apps>
+**Info lebih lanjut mengenai pemaketan aplikasi:** <https://yunohost.org/packaging_apps>
