@@ -45,21 +45,22 @@ ram.runtime = "700M"
 
 [resources]
     [resources.sources]
+
         [resources.sources.minio]
         extract = false
         in_subdir = false
-        amd64.url = "https://dl.min.io/server/minio/release/linux-amd64/minio"
-        amd64.sha256 = "5cb1e6309f2bd70e7d0ca77f33782beac1745790deb4c1f94444f1e7dec5fcb6"
-        arm64.url = "https://dl.min.io/server/minio/release/linux-arm64/minio"
-        arm64.sha256 = "f92539f2e9277d49ff939bf206cce6caf38f41dbee2fd08595cd72600b738b61"
+        amd64.url = "https://dl.min.io/server/minio/release/linux-amd64/archive/minio.RELEASE.2025-02-18T16-25-55Z"
+        amd64.sha256 = "46ee8ac67860b3816f80e47c2220dc06b12ee257e65689639aa74ada0c4ad5f3"
+        arm64.url = "https://dl.min.io/server/minio/release/linux-arm64/archive/minio.RELEASE.2025-02-18T16-25-55Z"
+        arm64.sha256 = "09eea7b83d91a889a82ace13283ee7ae00c3b44a07a566c47e1a1a22411405ba"
 
         [resources.sources.mc]
         extract = false
         in_subdir = false
-        amd64.url = "https://dl.min.io/client/mc/release/linux-amd64/mc"
-        amd64.sha256 = "655b13e25f5c99c74ab7dcc3de50574ccc4c933901482c7e962c27175161cca5"
-        arm64.url = "https://dl.min.io/client/mc/release/linux-arm64/mc"
-        arm64.sha256 = "b797ef3835d36ccdf2568071a18066eb8af080230a124150c97556159f2ca38d"
+        amd64.url = "https://dl.min.io/client/mc/release/linux-amd64/archive/mc.RELEASE.2025-02-15T10-36-16Z"
+        amd64.sha256 = "7a03ba39e158708a9e88f1bf5c346c6651b15c784e4b2c7150b5b5f282f43c28"
+        arm64.url = "https://dl.min.io/client/mc/release/linux-arm64/archive/mc.RELEASE.2025-02-15T10-36-16Z"
+        arm64.sha256 = "4ad4e79e05153a6e8c3dae84e54a4bf16df403575f2a19cb7d688d6594e3d553"
 
     [resources.system_user]
 
