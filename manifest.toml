@@ -76,4 +76,5 @@ ram.runtime = "700M"
     api.show_tile = false
 
     [resources.ports]
-    console.default = 36669
+    main.default = 9000
+    console.default = 9001
