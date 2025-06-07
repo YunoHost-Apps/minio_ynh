@@ -12,7 +12,7 @@ Group=__APP__
 #ProtectProc=invisible
 WorkingDirectory=__INSTALL_DIR__/
 EnvironmentFile=__INSTALL_DIR__/.env
-ExecStart=__INSTALL_DIR__/minio server
+ExecStart=__INSTALL_DIR__/minio server $MINIO_OPTS $MINIO_VOLUMES
 Restart=always
 
 # Specifies the maximum file descriptor number that can be opened by this process
