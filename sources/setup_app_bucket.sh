@@ -25,7 +25,7 @@ if [ "$help" == "1" ]; then
   echo "Usage: $0 --app=\$app --secret=YOUR_SECRET [--with-versioning]"
   echo ""
   echo "Set up a MinIO bucket for apps. Meant to be used by packages."
-  echo "Also creates a user in MinIO who will be granted readwrite access only to this bucket."
+  echo "Also creates an access key in MinIO who will be granted readwrite access only to this bucket."
   echo "See the admin documentation for more info: https://github.com/YunoHost-Apps/minio_ynh/blob/master/doc/ADMIN.md"
   exit 0
 fi
@@ -40,7 +40,7 @@ if [ -z "${SECRET:-}" ]; then
   exit 1
 fi
 
-USER=$APP
+ACCESS_KEY=$APP
 BUCKET=$APP
 
 policy_file=$(mktemp --suffix=".$APP.policy.json")
@@ -54,20 +54,16 @@ cleanup() {
 
 trap "cleanup" EXIT
 
-if "$minio_install_dir/mc" ls --json minio | jq -r ".key" | grep -q "^$APP/$"; then
+if "$minio_install_dir/mc" ls --json minio/ | jq -r ".key" | grep -q "^$APP/$"; then
   echo "Bucket already exist, skip"
   exit 0
 fi
-
-# Create a user in S3 for the app
-"$minio_install_dir/mc" admin user add minio "$USER" "$SECRET"
 
 # Create a bucket in S3 for the app
 "$minio_install_dir/mc" mb "${mb_opts[@]}" "minio/$BUCKET"
 
 # Create a new policy to give only access to the app's bucket
 # The policy_file is temporary and will be cleaned up at the end of the execution
-# NB: the `mc admin policy create` command does not seem to accept the here-documents syntax, hence the temporary file
 cat <<EOF > "$policy_file"
 {
   "Version": "2012-10-17",
@@ -81,7 +77,7 @@ cat <<EOF > "$policy_file"
   }]
 }
 EOF
-"$minio_install_dir/mc" admin policy create minio "readwrite-$APP" "$policy_file"
 
-# Attach the policy to the app's user on minio
-"$minio_install_dir/mc" admin policy attach minio "readwrite-$APP" --user "$USER"
+# Create the access for the app to the bucket, with the above policy.
+"$minio_install_dir/mc" admin accesskey create minio/ --access-key "$ACCESS_KEY" --secret-key "$SECRET" --policy "$policy_file" \
+  --name "$APP-ynh" --description "Access key for the $APP package for Yunohost"

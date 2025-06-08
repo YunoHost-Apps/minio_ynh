@@ -3,7 +3,7 @@
 During the install process, MinIO will install both the MinIO server and MinIO client.
 If your app needs to use an Amazon S3 storage, you are invited to use the MinIO client to create and setup buckets as per your app's requirements.
 
-### First step: define MinIO user credentials
+### First step: define MinIO credentials
 
 ```bash
 #=================================================
@@ -22,7 +22,7 @@ ynh_app_setting_set --key=minio_secret_key --value=$minio_secret_key
 
 ### Second step: create and setup your bucket
 
-Below we assume we simply create a bucket and a user with the name of the app.
+Below we assume we simply create a bucket and an access key with the name of the app.
 ```bash
 #=================================================
 # SETUP MINIO BUCKET

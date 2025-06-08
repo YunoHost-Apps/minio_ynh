@@ -22,7 +22,7 @@ ynh_app_setting_set --key=minio_secret_key --value=$minio_secret_key
 
 ### Deuxième étape : créer et configurer votre bucket
 
-En supposant simplement que nous créons un bucket et un utilisateur portant le nom de l'app.
+En supposant simplement que nous créons un bucket et une clé d'accès portant le nom de l'app.
 ```bash
 #=================================================
 # SETUP MINIO BUCKET
