@@ -30,12 +30,11 @@ Below we assume we simply create a bucket and a user with the name of the app.
 ynh_script_progression --message="Setting up MinIO bucket..." --weight=1
 
 sudo -u minio "$minio_install_dir/setup_app_bucket.sh" --app="$app" --secret="$minio_secret_key" \
-  --with-versioning --region=YOUR_REGION # --with-versioning and --region are optional
+  --with-versioning # --with-versioning is optional
 ```
 
 Where:
  - `--with-versioning` enables the [bucket versioning](https://min.io/docs/minio/linux/administration/object-management/object-versioning.html) (your app may need it)
- - `--region=YOUR_REGION` defines a region where to create your bucket
 
 
 ### Third step: Setup your app configuration to use the bucket

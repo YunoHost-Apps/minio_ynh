@@ -15,7 +15,6 @@ while [ "$#" -gt 0 ]; do
     --app=*) APP="${1#*=}"; shift 1;;
     --secret=*) SECRET="${1#*=}"; shift 1;;
     --with-versioning) mb_opts+=("--with-versioning"); shift 1;;
-    --region=*) mb_opts+=("--region" "${1#*=}"); shift 1;;
     --help*) help=1; shift 1;;
 
     *) echo "unknown option: $1" >&2; exit 1;;
@@ -23,7 +22,7 @@ while [ "$#" -gt 0 ]; do
 done
 
 if [ "$help" == "1" ]; then
-  echo "Usage: $0 --app=\$app --secret=YOUR_SECRET [--with-versioning] [--region=YOUR_REGION]"
+  echo "Usage: $0 --app=\$app --secret=YOUR_SECRET [--with-versioning]"
   echo ""
   echo "Set up a MinIO bucket for apps. Meant to be used by packages."
   echo "Also creates a user in MinIO who will be granted readwrite access only to this bucket."
