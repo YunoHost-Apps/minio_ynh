@@ -16,6 +16,13 @@ chmod +x "$install_dir/minio"
 chmod +x "$install_dir/mc"
 
 #=================================================
+# SPECIFIC SETUP
+#=================================================
+
+ynh_config_add --template="../sources/setup_app_bucket.sh" --destination="$install_dir/setup_app_bucket.sh"
+chmod 550 "$install_dir/setup_app_bucket.sh"
+
+#=================================================
 # SYSTEM CONFIGURATION
 #=================================================
 ynh_script_progression "Adding system configurations related to $app..."
