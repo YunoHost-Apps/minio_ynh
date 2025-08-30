@@ -106,7 +106,7 @@ ynh_systemctl --service=$app --action="start" --log_path="systemd"
 ynh_script_progression "Configuring$app client..."
 
 pushd $install_dir
-	ynh_hide_warnings ynh_exec_as_app ./mc --autocompletion --no-color alias set minio "http://127.0.0.1:$port" "$admin" "$password" --api S3v4
+	ynh_hide_warnings ynh_exec_as_app ./mc alias set minio "http://127.0.0.1:$port" "$admin" "$password" --autocompletion --no-color --api S3v4
 popd
 
 #=================================================
