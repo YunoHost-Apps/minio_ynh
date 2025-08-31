@@ -24,8 +24,6 @@ ynh_restore "$data_dir"
 #=================================================
 # RESTORE SYSTEM CONFIGURATIONS
 #=================================================
-# RESTORE THE PHP-FPM CONFIGURATION
-#=================================================
 ynh_script_progression "Restoring system configurations related to $app..."
 
 ynh_restore "/etc/nginx/conf.d/$domain.d/$app.conf"
@@ -42,7 +40,7 @@ yunohost service add $app --description="High Performance Storage" --log="/var/l
 #=================================================
 ynh_script_progression "Reloading NGINX web server and $app's service..."
 
-ynh_systemctl --service=$app --action="start" --log_path="systemd" #--wait_until="Console:"
+ynh_systemctl --service=$app --action="start" --log_path="systemd"
 
 ynh_systemctl --service=nginx --action=reload
 

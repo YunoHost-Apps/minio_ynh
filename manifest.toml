@@ -5,7 +5,7 @@ name = "MinIO"
 description.en = "High Performance, Kubernetes Native Object Storage"
 description.fr = "Serveur de stockage d'objets hautes performances"
 
-version = "2025.02.28~ynh1"
+version = "2025.07~ynh1"
 
 maintainers = []
 
@@ -49,18 +49,18 @@ ram.runtime = "700M"
         [resources.sources.minio]
         extract = false
         in_subdir = false
-        amd64.url = "https://dl.min.io/server/minio/release/linux-amd64/archive/minio.RELEASE.2025-02-28T09-55-16Z"
-        amd64.sha256 = "5cb1e6309f2bd70e7d0ca77f33782beac1745790deb4c1f94444f1e7dec5fcb6"
-        arm64.url = "https://dl.min.io/server/minio/release/linux-arm64/archive/minio.RELEASE.2025-02-28T09-55-16Z"
-        arm64.sha256 = "f92539f2e9277d49ff939bf206cce6caf38f41dbee2fd08595cd72600b738b61"
+        amd64.url = "https://dl.min.io/server/minio/release/linux-amd64/archive/minio.RELEASE.2025-07-23T15-54-02Z"
+        amd64.sha256 = "eef6581f6509f43ece007a6f2eb4c5e3ce41498c8956e919a7ac7b4b170fa431"
+        arm64.url = "https://dl.min.io/server/minio/release/linux-arm64/archive/minio.RELEASE.2025-07-23T15-54-02Z"
+        arm64.sha256 = "ec9f48fee97dee7e6ce8fe9f576471bcd52380c035091d8b075b64d606124c7e"
 
         [resources.sources.mc]
         extract = false
         in_subdir = false
-        amd64.url = "https://dl.min.io/client/mc/release/linux-amd64/archive/mc.RELEASE.2025-02-15T10-36-16Z"
-        amd64.sha256 = "7a03ba39e158708a9e88f1bf5c346c6651b15c784e4b2c7150b5b5f282f43c28"
-        arm64.url = "https://dl.min.io/client/mc/release/linux-arm64/archive/mc.RELEASE.2025-02-15T10-36-16Z"
-        arm64.sha256 = "4ad4e79e05153a6e8c3dae84e54a4bf16df403575f2a19cb7d688d6594e3d553"
+        amd64.url = "https://dl.min.io/client/mc/release/linux-amd64/archive/mc.RELEASE.2025-07-16T15-35-03Z"
+        amd64.sha256 = "a5c3695b6f76ed958c0f099795f32091fced0d748ddc749c8b24e07681bbfbb9"
+        arm64.url = "https://dl.min.io/client/mc/release/linux-arm64/archive/mc.RELEASE.2025-07-16T15-35-03Z"
+        arm64.sha256 = "4d5f12adc96af56299893306f832cb49fd103cdd844a6a91a8e5de0592c74f5a"
 
     [resources.system_user]
 
